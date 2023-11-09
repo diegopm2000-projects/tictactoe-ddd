@@ -8,9 +8,17 @@ In this project we will only focus on the domain layer, the inner layer of the c
 
 ![Clean Architecture](Assets/CleanArchitecture.png)
 
+Another representation of the clean architecture, including the Database system
+
+![Clean Architecture Alt Rep](Assets/CleanArchitecture-AltRep.png)
+
+More detailed
+
+![Clean Architecture More Detailed](Assets/CleanArchitecture-Detailed.png)
+
 ## 2. Domain Representation
 
-We have two bounded contexts: TicTacToe Game and our user's system.
+We have two bounded contexts: __TicTacToe Game__ and our __Authentication System__.
 
 Is the TicTacToe context where our game will be implemented, and in the user's contexts, we will implement actions of login
 
@@ -20,13 +28,13 @@ title: Bounded Contexts
 ---
 
 flowchart LR
-  subgraph ide1 [TicTacToe]
+  subgraph ide1 [TicTacToe Game]
   GAME --- BOARD
-  GAME --- PIECE
   GAME --- PLAYER
+  BOARD --- PIECE
   end
   PLAYER --- USER
-  subgraph ide2 [Authentication]
+  subgraph ide2 [Authentication System]
   USER --- LOGIN
   end
 

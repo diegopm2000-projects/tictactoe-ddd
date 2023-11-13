@@ -20,22 +20,4 @@ More detailed
 
 We have two bounded contexts: __TicTacToe Game__ and our __Authentication System__.
 
-Is the TicTacToe context where our game will be implemented, and in the user's contexts, we will implement actions of login
-
-```mermaid
----
-title: Bounded Contexts
----
-
-flowchart LR
-  subgraph ide1 [TicTacToe Game]
-  GAME --- BOARD
-  GAME --- PLAYER
-  BOARD --- PIECE
-  end
-  PLAYER --- USER
-  subgraph ide2 [Authentication System]
-  USER --- LOGIN
-  end
-
-```
+![TicTacToe DDD Schema](Assets/tictactoe-ddd-schema.png)

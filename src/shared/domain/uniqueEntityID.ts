@@ -6,7 +6,7 @@ export class ErrorUuidNotValid extends Error {
   }
 }
 
-export class Uuid {
+export class UniqueEntityID {
   readonly id: string
 
   private constructor(uuidStr: string) {
@@ -18,18 +18,18 @@ export class Uuid {
       throw new ErrorUuidNotValid(uuidStr)
     }
 
-    return new Uuid(uuidStr)
+    return new UniqueEntityID(uuidStr)
   }
 
   static validate(uuidStr: string): boolean {
     return uuidValidate(uuidStr)
   }
 
-  static generate(): Uuid {
+  static generate(): UniqueEntityID {
     return this.create(uuidv4())
   }
 
-  equals(uuid: Uuid) {
+  equals(uuid: UniqueEntityID) {
     return this.id == uuid.id
   }
 }

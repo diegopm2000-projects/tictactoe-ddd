@@ -1,8 +1,6 @@
 // SUT
-import { Uuid, ErrorUuidNotValid } from '../../../../src/shared/domain/uuid'
-
-const DEFAULT_UUID_STR = '0caaf0d6-d90e-4aea-9d4a-1279536a09bc'
-const ALT_UUID_STR = 'b3057db7-adb3-4fc1-9c7e-4d22e9143c4f'
+import { UniqueEntityID, ErrorUuidNotValid } from '../../../../src/shared/domain/uniqueEntityID'
+import { ALT_UUID_STR, DEFAULT_UUID_STR } from '../../expectations/expectations'
 
 // MOCKS
 jest.mock('uuid', () => {
@@ -15,8 +13,8 @@ jest.mock('uuid', () => {
   }
 })
 
-describe('Uuid - Tests', () => {
-  describe('Uuid - Tests', () => {
+describe('UniqueEntityID - Tests', () => {
+  describe('UuUniqueEntityIDid - Tests', () => {
     describe('create - Tests', () => {
       describe('create - successfully case', () => {
         it('create - successfully case', () => {
@@ -25,7 +23,7 @@ describe('Uuid - Tests', () => {
           // Expected result
           const expectedId = uuidStr
           // Act
-          const myUuid = Uuid.create(uuidStr)
+          const myUuid = UniqueEntityID.create(uuidStr)
           // Assert
           expect(myUuid.id).toBe(expectedId)
         })
@@ -38,7 +36,7 @@ describe('Uuid - Tests', () => {
           const expectedErrorMessage = new ErrorUuidNotValid(uuidStr).message
           // Act
           try {
-            Uuid.create(uuidStr)
+            UniqueEntityID.create(uuidStr)
             fail('It should not have come here!')
           } catch (error) {
             if (error instanceof Error) {
@@ -60,7 +58,7 @@ describe('Uuid - Tests', () => {
           // Expected result
           const expectedResult = true
           // Act
-          const result = Uuid.validate(uuidStr)
+          const result = UniqueEntityID.validate(uuidStr)
           // Assert
           expect(result).toBe(expectedResult)
         })
@@ -72,7 +70,7 @@ describe('Uuid - Tests', () => {
           // Expected result
           const expectedResult = false
           // Act
-          const result = Uuid.validate(uuidStr)
+          const result = UniqueEntityID.validate(uuidStr)
           // Assert
           expect(result).toBe(expectedResult)
         })
@@ -87,7 +85,7 @@ describe('Uuid - Tests', () => {
           // Expected result
           const expectedId = DEFAULT_UUID_STR
           // Act
-          const myUuid = Uuid.generate()
+          const myUuid = UniqueEntityID.generate()
           // Assert
           expect(myUuid.id).toBe(expectedId)
         })
@@ -98,8 +96,8 @@ describe('Uuid - Tests', () => {
       describe('equals - uuid are equals case', () => {
         it('equals - uuid are equals case', () => {
           // Arrange
-          const myUuid = Uuid.create(DEFAULT_UUID_STR)
-          const myUuid2 = Uuid.create(DEFAULT_UUID_STR)
+          const myUuid = UniqueEntityID.create(DEFAULT_UUID_STR)
+          const myUuid2 = UniqueEntityID.create(DEFAULT_UUID_STR)
           // Act
           const result = myUuid.equals(myUuid2)
           // Assert
@@ -109,8 +107,8 @@ describe('Uuid - Tests', () => {
       describe('equals - uuid are NOT equals case', () => {
         it('equals - uuid are NOT equals case', () => {
           // Arrange
-          const myUuid = Uuid.create(DEFAULT_UUID_STR)
-          const myUuid2 = Uuid.create(ALT_UUID_STR)
+          const myUuid = UniqueEntityID.create(DEFAULT_UUID_STR)
+          const myUuid2 = UniqueEntityID.create(ALT_UUID_STR)
           // Act
           const result = myUuid.equals(myUuid2)
           // Assert

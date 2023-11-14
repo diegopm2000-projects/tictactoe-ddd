@@ -1,3 +1,7 @@
+// Message Tests
+
+export const MESSAGE_TEST_FAILED = 'it should not reach here'
+
 // UUIDs
 
 export const DEFAULT_UUID_STR = '0caaf0d6-d90e-4aea-9d4a-1279536a09bc'

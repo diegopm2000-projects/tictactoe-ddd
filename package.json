@@ -17,11 +17,11 @@
   "license": "ISC",
   "dependencies": {
     "typescript": "^5.2.2",
-    "uuid": "^9.0.1"
+    "uuidv4": "^6.2.13"
   },
   "devDependencies": {
     "@types/jest": "^29.5.8",
-    "@types/uuid": "^9.0.7",
+    "@types/node": "^20.9.0",
     "@typescript-eslint/eslint-plugin": "^6.10.0",
     "@typescript-eslint/parser": "^6.10.0",
     "env-cmd": "^10.1.0",

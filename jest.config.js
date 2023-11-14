@@ -1,3 +1,6 @@
+// Prevent different timezones of execution environments (dev, pipeline, etc)
+process.env.TZ = 'GMT'
+
 module.exports = {
   preset: "ts-jest",
   cache: true,

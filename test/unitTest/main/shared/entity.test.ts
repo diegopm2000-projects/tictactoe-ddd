@@ -41,15 +41,17 @@ const ALT_PROPS = {
   email: 'user2@mail.com',
 }
 
+const DEFAULT_UNIQUE_ENTITY_ID = <UniqueEntityID>UniqueEntityID.create(DEFAULT_UUID_STR).value
+const ALT_UNIQUE_ENTITY_ID = <UniqueEntityID>UniqueEntityID.create(ALT_UUID_STR).value
+
 describe('Entity - Tests', () => {
   describe('Entity - Tests', () => {
     describe('constructor - Tests', () => {
       it('constructor - case when uuid was passed as parameter', () => {
         // Arrange
         const props = DEFAULT_PROPS
-        const id = UniqueEntityID.generate()
         // Act
-        const myEntity = EntityTestClass.create(props, id)
+        const myEntity = EntityTestClass.create(props, DEFAULT_UNIQUE_ENTITY_ID)
         // Assert
         expect(myEntity.name).toBe(props.name)
         expect(myEntity.surname).toBe(props.surname)
@@ -73,8 +75,8 @@ describe('Entity - Tests', () => {
     describe('equals - Tests', () => {
       it('equals - case when the two objects are entities, same props and are equals', () => {
         // Assert
-        const myEntity = EntityTestClass.create(DEFAULT_PROPS, UniqueEntityID.create(DEFAULT_UUID_STR))
-        const myEntity2 = EntityTestClass.create(DEFAULT_PROPS, UniqueEntityID.create(DEFAULT_UUID_STR))
+        const myEntity = EntityTestClass.create(DEFAULT_PROPS, DEFAULT_UNIQUE_ENTITY_ID)
+        const myEntity2 = EntityTestClass.create(DEFAULT_PROPS, DEFAULT_UNIQUE_ENTITY_ID)
         // Act
         const result = myEntity.equals(myEntity2)
         // Assert
@@ -82,8 +84,8 @@ describe('Entity - Tests', () => {
       })
       it('equals - case when the two objects are entities, different props and are equals', () => {
         // Assert
-        const myEntity = EntityTestClass.create(DEFAULT_PROPS, UniqueEntityID.create(DEFAULT_UUID_STR))
-        const myEntity2 = EntityTestClass.create(ALT_PROPS, UniqueEntityID.create(DEFAULT_UUID_STR))
+        const myEntity = EntityTestClass.create(DEFAULT_PROPS, DEFAULT_UNIQUE_ENTITY_ID)
+        const myEntity2 = EntityTestClass.create(ALT_PROPS, DEFAULT_UNIQUE_ENTITY_ID)
         // Act
         const result = myEntity.equals(myEntity2)
         // Assert
@@ -91,8 +93,8 @@ describe('Entity - Tests', () => {
       })
       it('equals - case when the two objects are entities, same props but are NOT equals', () => {
         // Assert
-        const myEntity = EntityTestClass.create(DEFAULT_PROPS, UniqueEntityID.create(DEFAULT_UUID_STR))
-        const myEntity2 = EntityTestClass.create(DEFAULT_PROPS, UniqueEntityID.create(ALT_UUID_STR))
+        const myEntity = EntityTestClass.create(DEFAULT_PROPS, DEFAULT_UNIQUE_ENTITY_ID)
+        const myEntity2 = EntityTestClass.create(DEFAULT_PROPS, ALT_UNIQUE_ENTITY_ID)
         // Act
         const result = myEntity.equals(myEntity2)
         // Assert
@@ -100,7 +102,7 @@ describe('Entity - Tests', () => {
       })
       it('equals - case when the second object is undefined', () => {
         // Assert
-        const myEntity = EntityTestClass.create(DEFAULT_PROPS, UniqueEntityID.create(DEFAULT_UUID_STR))
+        const myEntity = EntityTestClass.create(DEFAULT_PROPS, DEFAULT_UNIQUE_ENTITY_ID)
         const myEntity2 = undefined
         // Act
         const result = myEntity.equals(myEntity2)
@@ -109,7 +111,7 @@ describe('Entity - Tests', () => {
       })
       it('equals - case when the first object and the second object has the same reference, then the objects are equals', () => {
         // Assert
-        const myEntity = EntityTestClass.create(DEFAULT_PROPS, UniqueEntityID.create(DEFAULT_UUID_STR))
+        const myEntity = EntityTestClass.create(DEFAULT_PROPS, DEFAULT_UNIQUE_ENTITY_ID)
         const myEntity2 = myEntity
         // Act
         const result = myEntity.equals(myEntity2)
@@ -118,7 +120,7 @@ describe('Entity - Tests', () => {
       })
       it('equals - case when the second object is not an entity, the objects are NOT equals', () => {
         // Assert
-        const myEntity = EntityTestClass.create(DEFAULT_PROPS, UniqueEntityID.create(DEFAULT_UUID_STR))
+        const myEntity = EntityTestClass.create(DEFAULT_PROPS, DEFAULT_UNIQUE_ENTITY_ID)
         const myEntity2 = (<unknown>{ a: 1 }) as EntityTestClass
         // Act
         const result = myEntity.equals(myEntity2)

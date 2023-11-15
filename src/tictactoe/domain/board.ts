@@ -5,12 +5,16 @@ import { Entity } from '../../shared/domain/entity'
 import { UniqueEntityID } from '../../shared/domain/uniqueEntityID'
 import { Cell } from './cell'
 import { BoardCreationError, ROW_OR_COLUMN } from './errors/BoardCreationError'
+import { CellOccupiedError } from './errors/CellOccupiedError'
+import { PIECE_TYPE, Piece } from './piece'
+import { Position } from './position'
 
 export type BoardProps = {
   arrayCells: Array<Array<Cell>>
 }
 
 export type CreateBoardResponse = Either<BoardCreationError, Board>
+export type SetPieceResponse = Either<CellOccupiedError, boolean>
 
 export class Board extends Entity<BoardProps> {
   get arrayCells(): Array<Array<Cell>> {
@@ -33,5 +37,34 @@ export class Board extends Entity<BoardProps> {
     }
 
     return right(new Board(props, id))
+  }
+
+  getCell(row: Position, column: Position): Cell {
+    return this.props.arrayCells[row.value][column.value]
+  }
+
+  isXInCell(row: Position, column: Position): boolean {
+    return this.props.arrayCells[row.value][column.value].isXInCell()
+  }
+
+  isOInCell(row: Position, column: Position): boolean {
+    return this.props.arrayCells[row.value][column.value].isOInCell()
+  }
+
+  isEmptyCell(row: Position, column: Position): boolean {
+    return this.props.arrayCells[row.value][column.value].isEmpty()
+  }
+
+  isOccupiedCell(row: Position, column: Position): boolean {
+    return !this.props.arrayCells[row.value][column.value].isEmpty()
+  }
+
+  setPiece(pieceType: PIECE_TYPE, row: Position, column: Position): SetPieceResponse {
+    if (this.props.arrayCells[row.value][column.value].isOccupied()) {
+      return left(CellOccupiedError.create(row, column))
+    }
+    this.props.arrayCells[row.value][column.value] = Cell.create({ cell: Piece.create(pieceType) })
+
+    return right(true)
   }
 }

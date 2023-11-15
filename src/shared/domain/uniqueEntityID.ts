@@ -1,4 +1,5 @@
 import { isUuid, uuid } from 'uuidv4'
+
 import { Either, left, right } from './either'
 
 export class UuidNotValidError extends Error {

@@ -1,6 +1,7 @@
+import { ALT_UUID_STR, DEFAULT_UUID_STR, MESSAGE_TEST_FAILED } from '../../expectations/expectations'
+
 // SUT
 import { UniqueEntityID, UuidNotValidError } from '../../../../src/shared/domain/uniqueEntityID'
-import { ALT_UUID_STR, DEFAULT_UUID_STR, MESSAGE_TEST_FAILED } from '../../expectations/expectations'
 
 // MOCKS
 jest.mock('uuidv4', () => {

@@ -78,4 +78,42 @@ describe('Cell - Tests', () => {
       expect(result).toBe(false)
     })
   })
+
+  describe('isXInCell - Tests', () => {
+    it('isXInCell - case when X is in cell', () => {
+      // Arrange
+      const myCell = Cell.create({ cell: Piece.create(PIECE_TYPE.X) })
+      // Act
+      const result = myCell.isXInCell()
+      // Assert
+      expect(result).toBe(true)
+    })
+    it('isXInCell - case when X is NOT in cell', () => {
+      // Arrange
+      const myCell = Cell.create({ cell: undefined })
+      // Act
+      const result = myCell.isXInCell()
+      // Assert
+      expect(result).toBe(false)
+    })
+  })
+
+  describe('isOInCell - Tests', () => {
+    it('isOInCell - case when O is in cell', () => {
+      // Arrange
+      const myCell = Cell.create({ cell: Piece.create(PIECE_TYPE.O) })
+      // Act
+      const result = myCell.isOInCell()
+      // Assert
+      expect(result).toBe(true)
+    })
+    it('isOInCell - case when O is NOT in cell', () => {
+      // Arrange
+      const myCell = Cell.create({ cell: undefined })
+      // Act
+      const result = myCell.isOInCell()
+      // Assert
+      expect(result).toBe(false)
+    })
+  })
 })

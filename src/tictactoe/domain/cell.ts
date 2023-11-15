@@ -1,5 +1,5 @@
 import { ValueObject } from '../../shared/domain/valueObject'
-import { Piece } from './piece'
+import { PIECE_TYPE, Piece } from './piece'
 
 export type CellProps = {
   cell: Piece | undefined
@@ -24,5 +24,13 @@ export class Cell extends ValueObject<CellProps> {
 
   public isEmpty(): boolean {
     return !this.isOccupied()
+  }
+
+  public isXInCell(): boolean {
+    return this.props.cell instanceof Piece && this.props.cell.type == PIECE_TYPE.X
+  }
+
+  public isOInCell(): boolean {
+    return this.props.cell instanceof Piece && this.props.cell.type == PIECE_TYPE.O
   }
 }

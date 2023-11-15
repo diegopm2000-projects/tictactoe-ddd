@@ -1,6 +1,8 @@
-import { Entity } from '../../../../src/shared/domain/entity'
 import { UniqueEntityID } from '../../../../src/shared/domain/uniqueEntityID'
 import { ALT_UUID_STR, DEFAULT_UUID_STR } from '../../expectations/expectations'
+
+// SUT
+import { Entity } from '../../../../src/shared/domain/entity'
 
 type EntityTestClassProps = {
   name: string

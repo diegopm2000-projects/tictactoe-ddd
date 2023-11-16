@@ -6,12 +6,12 @@ export type NickProps = {
   value: string
 }
 
-export const MIN_LENGTH_ALIAS = 4
-export const MAX_LENGTH_ALIAS = 16
-
 export type NickCreationResponse = Either<NickNotValidError, Nick>
 
 export class Nick extends ValueObject<NickProps> {
+  public static MIN_LENGTH_ALIAS = 4
+  public static MAX_LENGTH_ALIAS = 16
+
   get value(): string {
     return this.props.value
   }
@@ -21,7 +21,7 @@ export class Nick extends ValueObject<NickProps> {
   }
 
   public static create(props: NickProps): NickCreationResponse {
-    if (props.value.length < MIN_LENGTH_ALIAS || props.value.length > MAX_LENGTH_ALIAS) {
+    if (props.value.length < Nick.MIN_LENGTH_ALIAS || props.value.length > Nick.MAX_LENGTH_ALIAS) {
       return left(NickNotValidError.create(props.value))
     }
 

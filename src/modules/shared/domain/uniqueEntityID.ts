@@ -15,10 +15,10 @@ export class UuidNotValidError extends Error {
 export type CreateUniqueEntityIDResponse = Either<UuidNotValidError, UniqueEntityID>
 
 export class UniqueEntityID {
-  readonly id: string
+  readonly value: string
 
   private constructor(uuidStr: string) {
-    this.id = uuidStr
+    this.value = uuidStr
   }
 
   static create(uuidStr: string): CreateUniqueEntityIDResponse {
@@ -38,6 +38,6 @@ export class UniqueEntityID {
   }
 
   equals(uuid: UniqueEntityID) {
-    return this.id == uuid.id
+    return this.value == uuid.value
   }
 }

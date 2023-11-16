@@ -24,7 +24,7 @@ describe('UniqueEntityID - Tests', () => {
         const uuidCreationResponse = UniqueEntityID.create(uuidStr)
         // Assert
         expect(uuidCreationResponse.isRight()).toBe(true)
-        expect((<UniqueEntityID>uuidCreationResponse.value)?.id).toBe(uuidStr)
+        expect((<UniqueEntityID>uuidCreationResponse.value)?.value).toBe(uuidStr)
       })
     })
     describe('create - failed case', () => {
@@ -71,7 +71,7 @@ describe('UniqueEntityID - Tests', () => {
         // Act
         const result = UniqueEntityID.generate()
         // Assert
-        expect(result.id).toBe(DEFAULT_UUID_STR)
+        expect(result.value).toBe(DEFAULT_UUID_STR)
       })
     })
   })

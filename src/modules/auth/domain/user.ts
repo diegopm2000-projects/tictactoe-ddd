@@ -1,7 +1,7 @@
 import { AggregateRoot } from '../../shared/domain/aggregateRoot'
 import { UniqueEntityID } from '../../shared/domain/uniqueEntityID'
-import { Email } from '../../tictactoe/domain/email'
-import { Nick } from '../../tictactoe/domain/nick'
+import { Email } from '../../tictactoe/domain/email' // TODO - esto debería ir al shared (se usa en auth y en tictactoe)
+import { Nick } from '../../tictactoe/domain/nick' // TODO - esto debería ir al shared (se usa en auth y en tictactoe)
 import { UserCredential } from './userCredential'
 
 export type UserProps = {
@@ -21,6 +21,10 @@ export class User extends AggregateRoot<UserProps> {
 
   get hashedSecret(): string {
     return this.props.hashedSecret
+  }
+
+  get id(): UniqueEntityID {
+    return this.id
   }
 
   private constructor(props: UserProps, id?: UniqueEntityID) {

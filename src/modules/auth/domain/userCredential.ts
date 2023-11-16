@@ -17,6 +17,10 @@ export class UserCredential extends Entity<UserCredentialProps> {
     return this.props.email
   }
 
+  get id(): UniqueEntityID {
+    return this.id
+  }
+
   private constructor(props: UserCredentialProps, id?: UniqueEntityID) {
     super(props, id)
   }

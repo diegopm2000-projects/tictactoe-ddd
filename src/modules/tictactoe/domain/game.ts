@@ -1,6 +1,6 @@
 import { Either, left, right } from '../../../modules/shared/domain/either'
-import { Entity } from '../../../modules/shared/domain/entity'
 import { UniqueEntityID } from '../../../modules/shared/domain/uniqueEntityID'
+import { AggregateRoot } from '../../shared/domain/aggregateRoot'
 import { Board } from './board'
 import { CellOccupiedError } from './errors/CellOccupiedError'
 import { GameHasFinishedError } from './errors/GameHasFinishedError'
@@ -94,7 +94,7 @@ export type GameConstructorParams = {
 
 export type MoveResponse = Either<CellOccupiedError | GameHasFinishedError | TurnNotValidError, boolean>
 
-export class Game extends Entity<GameProps> {
+export class Game extends AggregateRoot<GameProps> {
   get playerX(): Player {
     return this.props.playerX
   }

@@ -1,6 +1,6 @@
 import { Either, left, right } from '../../../modules/shared/domain/either'
-import { Entity } from '../../../modules/shared/domain/entity'
 import { UniqueEntityID } from '../../../modules/shared/domain/uniqueEntityID'
+import { AggregateRoot } from '../../shared/domain/aggregateRoot'
 import { Email } from './email'
 import { EmailNotValidError } from './errors/EmailNotValidError'
 import { NickNotValidError } from './errors/NickNotValidError'
@@ -18,7 +18,7 @@ export interface PlayerCreationParams {
 
 export type PlayerCreationResponse = Either<NickNotValidError | EmailNotValidError, Player>
 
-export class Player extends Entity<PlayerProps> {
+export class Player extends AggregateRoot<PlayerProps> {
   get nick(): Nick {
     return this.props.nick
   }

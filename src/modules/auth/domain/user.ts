@@ -1,4 +1,4 @@
-import { Entity } from '../../shared/domain/entity'
+import { AggregateRoot } from '../../shared/domain/aggregateRoot'
 import { UniqueEntityID } from '../../shared/domain/uniqueEntityID'
 import { Email } from '../../tictactoe/domain/email'
 import { Nick } from '../../tictactoe/domain/nick'
@@ -10,7 +10,7 @@ export type UserProps = {
   hashedSecret: string
 }
 
-export class User extends Entity<UserProps> {
+export class User extends AggregateRoot<UserProps> {
   get nick(): Nick {
     return this.props.nick
   }

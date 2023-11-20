@@ -1,3 +1,5 @@
+import { injectable } from 'inversify'
+
 import { Either, left, right } from '../../../../shared/domain/either'
 import { UniqueEntityID } from '../../../../shared/domain/uniqueEntityID'
 import { BadFormatInDatabaseError } from '../../../../shared/infrastructure/persistence/errors/BadFormatInDatabaseError'
@@ -6,6 +8,7 @@ import { User } from '../../../domain/user'
 import { UserModelPersistence } from './User.modelPersistence'
 import { UserModelPersistenceConverter } from './User.modelPersistence.converter'
 
+@injectable()
 export class UserMemoryRepository implements IUserRepository {
   private _database: Array<UserModelPersistence> = []
 
@@ -15,7 +18,7 @@ export class UserMemoryRepository implements IUserRepository {
     }
     const objConversionResponse = UserModelPersistenceConverter.getInstance().modelPersistenceToModel(obj)
     if (objConversionResponse.isLeft()) {
-      return left(objConversionResponse.value)
+      return left(BadFormatInDatabaseError.create())
     }
     return right(objConversionResponse.value)
   }
@@ -43,5 +46,9 @@ export class UserMemoryRepository implements IUserRepository {
   getOneByEmail(email: string): Promise<Either<BadFormatInDatabaseError, User | undefined>> {
     const objFound = this._database.find((user: UserModelPersistence) => user.email == email)
     return Promise.resolve(this.innerObjConverter(objFound))
+  }
+
+  setDatabase(database: Array<UserModelPersistence>) {
+    this._database = database
   }
 }

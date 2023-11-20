@@ -10,6 +10,10 @@ export abstract class Entity<T> {
   protected readonly _id: UniqueEntityID
   protected props: T
 
+  get id(): UniqueEntityID {
+    return this._id
+  }
+
   constructor(props: T, id?: UniqueEntityID) {
     this._id = id ? id : UniqueEntityID.generate()
     this.props = props

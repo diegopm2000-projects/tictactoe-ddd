@@ -1,3 +1,5 @@
+import 'reflect-metadata'
+
 import { ALT_UUID_STR, DEFAULT_UUID_STR, MESSAGE_TEST_FAILED } from '../../../expectations/expectations'
 
 // SUT

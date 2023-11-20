@@ -1,14 +1,9 @@
-import { UniqueEntityID } from '../../../../../src/modules/shared/domain/uniqueEntityID'
-import { Email } from '../../../../../src/modules/tictactoe/domain/email'
-import { Nick } from '../../../../../src/modules/tictactoe/domain/nick'
-import { DEFAULT_UUID_STR } from '../../../expectations/expectations'
+import 'reflect-metadata'
+
+import { DEFAULT_EMAIL, DEFAULT_ID, DEFAULT_NICK } from '../../../../expectations/expectations'
 
 // SUT
-import { UserCredential } from '../../../../../src/modules/auth/domain/userCredential'
-
-const DEFAULT_EMAIL: Email = <Email>Email.create({ value: 'user@mail.com' }).value
-const DEFAULT_NICK: Nick = <Nick>Nick.create({ value: 'alias' }).value
-const DEFAULT_ID: UniqueEntityID = <UniqueEntityID>UniqueEntityID.create(DEFAULT_UUID_STR).value
+import { UserCredential } from '../../../../../../src/modules/auth/domain/userCredential'
 
 describe('UserCredential - Tests', () => {
   describe('create - Tests', () => {

@@ -7,9 +7,10 @@ import { ILoginRequest, ILoginResponse } from '../ports/input/ILogin.service'
 import { IHashHelper } from '../ports/output/IHash.helper'
 import { IUserRepository } from '../ports/output/IUser.repository'
 import { LoginError } from './errors/LoginError'
+import { InternalServerError } from './errors/InternalServerError'
 
 @injectable()
-export class RegisterService implements IUseCase<ILoginRequest, ILoginResponse> {
+export class LoginService implements IUseCase<ILoginRequest, ILoginResponse> {
   constructor(
     @inject(TYPES.IUserRepository) private userRepository: IUserRepository,
     @inject(TYPES.IHashHelper) private hashHelper: IHashHelper
@@ -20,7 +21,7 @@ export class RegisterService implements IUseCase<ILoginRequest, ILoginResponse> 
     const userFoundResponse = await this.userRepository.getOneByEmail(request.email)
 
     if (userFoundResponse.isLeft()) {
-      return left(userFoundResponse.value)
+      return left(InternalServerError.create())
     }
     const userFound = userFoundResponse.value
 

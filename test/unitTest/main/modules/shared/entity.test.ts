@@ -1,3 +1,5 @@
+import 'reflect-metadata'
+
 import { UniqueEntityID } from '../../../../../src/modules/shared/domain/uniqueEntityID'
 import { ALT_UUID_STR, DEFAULT_UUID_STR } from '../../../expectations/expectations'
 

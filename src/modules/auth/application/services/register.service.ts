@@ -10,6 +10,7 @@ import { IHashHelper } from '../ports/output/IHash.helper'
 import { IUserRepository } from '../ports/output/IUser.repository'
 import { InputParamsInUserRegisterError } from './errors/InputParamsInUserRegisterError'
 import { UserAlreadyRegisteredError } from './errors/UserAlreadyRegisteredError'
+import { InternalServerError } from './errors/InternalServerError'
 
 type NickAndEmailValidated = {
   nick: Nick
@@ -52,7 +53,7 @@ export class RegisterService implements IRegisterService {
     const userFoundResponse = await this.userRepository.getOneByEmail(request.email)
 
     if (userFoundResponse.isLeft()) {
-      return left(userFoundResponse.value)
+      return left(InternalServerError.create())
     }
     const userFound = userFoundResponse.value
 

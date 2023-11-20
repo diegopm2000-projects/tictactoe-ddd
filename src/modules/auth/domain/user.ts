@@ -23,10 +23,6 @@ export class User extends AggregateRoot<UserProps> {
     return this.props.hashedSecret
   }
 
-  get id(): UniqueEntityID {
-    return this.id
-  }
-
   private constructor(props: UserProps, id?: UniqueEntityID) {
     super(props, id)
   }
@@ -36,6 +32,6 @@ export class User extends AggregateRoot<UserProps> {
   }
 
   getUserCredential(): UserCredential {
-    return UserCredential.create({ email: this.email, nick: this.nick })
+    return UserCredential.create({ email: this.email, nick: this.nick }, this.id)
   }
 }

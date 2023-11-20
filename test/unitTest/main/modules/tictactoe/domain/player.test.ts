@@ -1,3 +1,5 @@
+import 'reflect-metadata'
+
 import { UniqueEntityID } from '../../../../../../src/modules/shared/domain/uniqueEntityID'
 import { EmailNotValidError } from '../../../../../../src/modules/tictactoe/domain/errors/EmailNotValidError'
 import { NickNotValidError } from '../../../../../../src/modules/tictactoe/domain/errors/NickNotValidError'

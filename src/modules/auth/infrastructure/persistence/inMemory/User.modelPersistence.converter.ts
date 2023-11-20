@@ -1,4 +1,5 @@
 import { Either, left, right } from '../../../../shared/domain/either'
+import { UniqueEntityID, UuidNotValidError } from '../../../../shared/domain/uniqueEntityID'
 import { IModelPersistenceConverter } from '../../../../shared/infrastructure/persistence/IModelPersistenceConverter'
 import { Email } from '../../../../tictactoe/domain/email'
 import { EmailNotValidError } from '../../../../tictactoe/domain/errors/EmailNotValidError'
@@ -7,7 +8,7 @@ import { Nick } from '../../../../tictactoe/domain/nick'
 import { User } from '../../../domain/user'
 import { UserModelPersistence } from './User.modelPersistence'
 
-export type ModelPersistenceToModelResponse = Either<NickNotValidError | EmailNotValidError, User>
+export type ModelPersistenceToModelResponse = Either<UuidNotValidError | NickNotValidError | EmailNotValidError, User>
 
 export class UserModelPersistenceConverter implements IModelPersistenceConverter<User, UserModelPersistence, ModelPersistenceToModelResponse> {
   modelToModelPersistence(user: User): UserModelPersistence {
@@ -20,6 +21,10 @@ export class UserModelPersistenceConverter implements IModelPersistenceConverter
   }
 
   modelPersistenceToModel(userModelPersistence: UserModelPersistence): ModelPersistenceToModelResponse {
+    const uniqueIdCreationResponse = UniqueEntityID.create(userModelPersistence.id)
+    if (uniqueIdCreationResponse.isLeft()) {
+      return left(uniqueIdCreationResponse.value)
+    }
     const nickCreationResponse = Nick.create({ value: userModelPersistence.nick })
     if (nickCreationResponse.isLeft()) {
       return left(nickCreationResponse.value)
@@ -29,7 +34,10 @@ export class UserModelPersistenceConverter implements IModelPersistenceConverter
       return left(emailCreationResponse.value)
     }
 
-    const user = User.create({ email: emailCreationResponse.value, nick: nickCreationResponse.value, hashedSecret: userModelPersistence.hashedSecret })
+    const user = User.create(
+      { email: emailCreationResponse.value, nick: nickCreationResponse.value, hashedSecret: userModelPersistence.hashedSecret },
+      uniqueIdCreationResponse.value
+    )
     return right(user)
   }
 

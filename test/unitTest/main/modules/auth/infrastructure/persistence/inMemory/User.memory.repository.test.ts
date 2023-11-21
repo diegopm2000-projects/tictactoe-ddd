@@ -1,11 +1,11 @@
 import 'reflect-metadata'
 
 import { User } from '../../../../../../../../src/modules/auth/domain/user'
+import { BadFormatInDatabaseError } from '../../../../../../../../src/modules/shared/infrastructure/persistence/errors/BadFormatInDatabaseError'
 import { ALT_ID, DEFAULT_EMAIL, DEFAULT_HASHED_SECRET, DEFAULT_USER, DEFAULT_UUID_STR } from '../../../../../../expectations/expectations'
 
 // SUT
 import { UserMemoryRepository } from '../../../../../../../../src/modules/auth/infrastructure/persistence/inMemory/User.memory.repository'
-import { BadFormatInDatabaseError } from '../../../../../../../../src/modules/shared/infrastructure/persistence/errors/BadFormatInDatabaseError'
 
 describe('UserMemoryRepository - Tests', () => {
   describe('save - Tests', () => {

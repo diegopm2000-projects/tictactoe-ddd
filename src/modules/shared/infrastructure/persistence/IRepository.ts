@@ -1,5 +1,5 @@
-import { Either } from '../../domain/either'
-import { UniqueEntityID } from '../../domain/uniqueEntityID'
+import { Either } from '../../domain/core/either'
+import { UniqueEntityID } from '../../domain/core/uniqueEntityID'
 import { BadFormatInDatabaseError } from './errors/BadFormatInDatabaseError'
 
 export interface IRepository<T> {

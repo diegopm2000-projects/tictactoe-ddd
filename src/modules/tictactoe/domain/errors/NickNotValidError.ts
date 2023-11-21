@@ -1,5 +1,5 @@
-import { DomainError } from '../../../../modules/shared/domain/domainError'
-import { Nick } from '../nick'
+import { DomainError } from '../../../shared/domain/core/domainError'
+import { Nick } from '../../../shared/domain/nick'
 
 export class NickNotValidError extends DomainError {
   constructor(nickName: string) {

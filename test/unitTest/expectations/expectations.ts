@@ -1,9 +1,9 @@
 import { User } from '../../../src/modules/auth/domain/user'
 import { MOCK_HASHED_SECRET } from '../../../src/modules/auth/infrastructure/helpers/MockHash.helper'
-import { UniqueEntityID } from '../../../src/modules/shared/domain/uniqueEntityID'
+import { UniqueEntityID } from '../../../src/modules/shared/domain/core/uniqueEntityID'
+import { Email } from '../../../src/modules/shared/domain/email'
+import { Nick } from '../../../src/modules/shared/domain/nick'
 import { DependencyContainer } from '../../../src/modules/shared/infrastructure/dependencyInjection/dependencyContainer'
-import { Email } from '../../../src/modules/tictactoe/domain/email'
-import { Nick } from '../../../src/modules/tictactoe/domain/nick'
 
 // Depency Injection Container
 

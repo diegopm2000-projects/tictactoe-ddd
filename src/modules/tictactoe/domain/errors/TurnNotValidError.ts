@@ -1,4 +1,4 @@
-import { DomainError } from '../../../../modules/shared/domain/domainError'
+import { DomainError } from '../../../shared/domain/core/domainError'
 import { PIECE_TYPE } from '../piece'
 
 export class TurnNotValidError extends DomainError {

@@ -1,4 +1,4 @@
-import { ValueObject } from '../../../modules/shared/domain/valueObject'
+import { ValueObject } from '../../shared/domain/core/valueObject'
 import { PIECE_TYPE, Piece } from './piece'
 
 export type CellProps = {

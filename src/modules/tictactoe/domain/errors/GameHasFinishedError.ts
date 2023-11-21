@@ -1,4 +1,4 @@
-import { DomainError } from '../../../../modules/shared/domain/domainError'
+import { DomainError } from '../../../shared/domain/core/domainError'
 
 export class GameHasFinishedError extends DomainError {
   constructor() {

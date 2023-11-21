@@ -1,5 +1,5 @@
 // SUT
-import { ValueObject } from '../../../../../src/modules/shared/domain/valueObject'
+import { ValueObject } from '../../../../../../../src/modules/shared/domain/core/valueObject'
 
 export interface TestClassProps {
   name: string

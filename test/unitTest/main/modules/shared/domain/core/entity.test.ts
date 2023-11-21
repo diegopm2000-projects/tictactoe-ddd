@@ -1,10 +1,10 @@
 import 'reflect-metadata'
 
-import { UniqueEntityID } from '../../../../../src/modules/shared/domain/uniqueEntityID'
-import { ALT_UUID_STR, DEFAULT_UUID_STR } from '../../../expectations/expectations'
+import { UniqueEntityID } from '../../../../../../../src/modules/shared/domain/core/uniqueEntityID'
+import { ALT_UUID_STR, DEFAULT_UUID_STR } from '../../../../../expectations/expectations'
 
 // SUT
-import { Entity } from '../../../../../src/modules/shared/domain/entity'
+import { Entity } from '../../../../../../../src/modules/shared/domain/core/entity'
 
 type EntityTestClassProps = {
   name: string

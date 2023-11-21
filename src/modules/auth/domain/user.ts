@@ -1,7 +1,7 @@
-import { AggregateRoot } from '../../shared/domain/aggregateRoot'
-import { UniqueEntityID } from '../../shared/domain/uniqueEntityID'
-import { Email } from '../../tictactoe/domain/email' // TODO - esto debería ir al shared (se usa en auth y en tictactoe)
-import { Nick } from '../../tictactoe/domain/nick' // TODO - esto debería ir al shared (se usa en auth y en tictactoe)
+import { AggregateRoot } from '../../shared/domain/core/aggregateRoot'
+import { UniqueEntityID } from '../../shared/domain/core/uniqueEntityID'
+import { Email } from '../../shared/domain/email'
+import { Nick } from '../../shared/domain/nick'
 import { UserCredential } from './userCredential'
 
 export type UserProps = {

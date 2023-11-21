@@ -4,11 +4,11 @@ import 'reflect-metadata'
 
 import { User } from '../../../../../../../../src/modules/auth/domain/user'
 import { UserModelPersistence } from '../../../../../../../../src/modules/auth/infrastructure/persistence/inMemory/User.modelPersistence'
-import { UniqueEntityID, UuidNotValidError } from '../../../../../../../../src/modules/shared/domain/uniqueEntityID'
-import { Email } from '../../../../../../../../src/modules/tictactoe/domain/email'
+import { UniqueEntityID, UuidNotValidError } from '../../../../../../../../src/modules/shared/domain/core/uniqueEntityID'
+import { Email } from '../../../../../../../../src/modules/shared/domain/email'
+import { Nick } from '../../../../../../../../src/modules/shared/domain/nick'
 import { EmailNotValidError } from '../../../../../../../../src/modules/tictactoe/domain/errors/EmailNotValidError'
 import { NickNotValidError } from '../../../../../../../../src/modules/tictactoe/domain/errors/NickNotValidError'
-import { Nick } from '../../../../../../../../src/modules/tictactoe/domain/nick'
 import { DEFAULT_UUID_STR } from '../../../../../../expectations/expectations'
 
 // SUT

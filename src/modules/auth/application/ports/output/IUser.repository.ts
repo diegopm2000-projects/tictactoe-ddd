@@ -1,4 +1,4 @@
-import { Either } from '../../../../shared/domain/either'
+import { Either } from '../../../../shared/domain/core/either'
 import { IRepository } from '../../../../shared/infrastructure/persistence/IRepository'
 import { BadFormatInDatabaseError } from '../../../../shared/infrastructure/persistence/errors/BadFormatInDatabaseError'
 import { User } from '../../../domain/user'

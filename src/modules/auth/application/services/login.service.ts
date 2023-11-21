@@ -1,7 +1,7 @@
 import { inject, injectable } from 'inversify'
 
 import { IUseCase } from '../../../shared/application/usecase'
-import { left, right } from '../../../shared/domain/either'
+import { left, right } from '../../../shared/domain/core/either'
 import { TYPES } from '../../../shared/infrastructure/dependencyInjection/types'
 import { ILoginRequest, ILoginResponse } from '../ports/input/ILogin.service'
 import { IHashHelper } from '../ports/output/IHash.helper'

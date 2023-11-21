@@ -1,5 +1,5 @@
 import { IUseCase } from '../../../../shared/application/usecase'
-import { Either } from '../../../../shared/domain/either'
+import { Either } from '../../../../shared/domain/core/either'
 import { InputParamsInUserRegisterError } from '../../services/errors/InputParamsInUserRegisterError'
 import { InternalServerError } from '../../services/errors/InternalServerError'
 import { UserAlreadyRegisteredError } from '../../services/errors/UserAlreadyRegisteredError'

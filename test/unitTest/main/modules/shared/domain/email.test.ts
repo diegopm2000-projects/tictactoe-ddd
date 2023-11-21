@@ -1,7 +1,7 @@
 import { EmailNotValidError } from '../../../../../../src/modules/tictactoe/domain/errors/EmailNotValidError'
 
 // SUT
-import { Email } from '../../../../../../src/modules/tictactoe/domain/email'
+import { Email } from '../../../../../../src/modules/shared/domain/email'
 
 describe('Email - Tests', () => {
   describe('create - Tests', () => {

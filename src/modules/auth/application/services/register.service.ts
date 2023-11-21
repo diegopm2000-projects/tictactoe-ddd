@@ -1,9 +1,9 @@
 import { inject, injectable } from 'inversify'
 
-import { Either, left, right } from '../../../shared/domain/either'
+import { Either, left, right } from '../../../shared/domain/core/either'
 import { TYPES } from '../../../shared/infrastructure/dependencyInjection/types'
-import { Email } from '../../../tictactoe/domain/email'
-import { Nick } from '../../../tictactoe/domain/nick'
+import { Email } from '../../../shared/domain/email'
+import { Nick } from '../../../shared/domain/nick'
 import { User } from '../../domain/user'
 import { IRegisterRequest, IRegisterResponse, IRegisterService } from '../ports/input/IRegister.service'
 import { IHashHelper } from '../ports/output/IHash.helper'

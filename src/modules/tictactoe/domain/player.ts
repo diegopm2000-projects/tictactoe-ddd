@@ -1,10 +1,10 @@
-import { Either, left, right } from '../../../modules/shared/domain/either'
-import { UniqueEntityID } from '../../../modules/shared/domain/uniqueEntityID'
-import { AggregateRoot } from '../../shared/domain/aggregateRoot'
-import { Email } from './email'
+import { Either, left, right } from '../../shared/domain/core/either'
+import { UniqueEntityID } from '../../shared/domain/core/uniqueEntityID'
+import { AggregateRoot } from '../../shared/domain/core/aggregateRoot'
+import { Email } from '../../shared/domain/email'
 import { EmailNotValidError } from './errors/EmailNotValidError'
 import { NickNotValidError } from './errors/NickNotValidError'
-import { Nick } from './nick'
+import { Nick } from '../../shared/domain/nick'
 
 export interface PlayerProps {
   nick: Nick

@@ -1,9 +1,9 @@
 import 'reflect-metadata'
 
-import { ALT_UUID_STR, DEFAULT_UUID_STR, MESSAGE_TEST_FAILED } from '../../../expectations/expectations'
+import { ALT_UUID_STR, DEFAULT_UUID_STR, MESSAGE_TEST_FAILED } from '../../../../../expectations/expectations'
 
 // SUT
-import { UniqueEntityID, UuidNotValidError } from '../../../../../src/modules/shared/domain/uniqueEntityID'
+import { UniqueEntityID, UuidNotValidError } from '../../../../../../../src/modules/shared/domain/core/uniqueEntityID'
 
 // MOCKS
 jest.mock('uuid', () => {

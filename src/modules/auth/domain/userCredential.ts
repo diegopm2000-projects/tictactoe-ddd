@@ -1,7 +1,7 @@
-import { Entity } from '../../shared/domain/entity'
-import { UniqueEntityID } from '../../shared/domain/uniqueEntityID'
-import { Email } from '../../tictactoe/domain/email'
-import { Nick } from '../../tictactoe/domain/nick'
+import { Entity } from '../../shared/domain/core/entity'
+import { UniqueEntityID } from '../../shared/domain/core/uniqueEntityID'
+import { Email } from '../../shared/domain/email'
+import { Nick } from '../../shared/domain/nick'
 
 export type UserCredentialProps = {
   email: Email

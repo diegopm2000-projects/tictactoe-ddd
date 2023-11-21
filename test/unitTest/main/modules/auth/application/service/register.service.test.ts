@@ -7,7 +7,7 @@ import { InternalServerError } from '../../../../../../../src/modules/auth/appli
 import { UserAlreadyRegisteredError } from '../../../../../../../src/modules/auth/application/services/errors/UserAlreadyRegisteredError'
 import { HashHelper } from '../../../../../../../src/modules/auth/infrastructure/helpers/MockHash.helper'
 import { UserMemoryRepository } from '../../../../../../../src/modules/auth/infrastructure/persistence/inMemory/User.memory.repository'
-import { left, right } from '../../../../../../../src/modules/shared/domain/either'
+import { left, right } from '../../../../../../../src/modules/shared/domain/core/either'
 import { TYPES } from '../../../../../../../src/modules/shared/infrastructure/dependencyInjection/types'
 import { BadFormatInDatabaseError } from '../../../../../../../src/modules/shared/infrastructure/persistence/errors/BadFormatInDatabaseError'
 import { DEFAULT_CONTAINER, DEFAULT_EMAIL, DEFAULT_HASHED_SECRET, DEFAULT_NICK, DEFAULT_USER } from '../../../../../expectations/expectations'

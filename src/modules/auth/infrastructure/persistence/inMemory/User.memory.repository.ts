@@ -1,7 +1,7 @@
 import { injectable } from 'inversify'
 
-import { Either, left, right } from '../../../../shared/domain/either'
-import { UniqueEntityID } from '../../../../shared/domain/uniqueEntityID'
+import { Either, left, right } from '../../../../shared/domain/core/either'
+import { UniqueEntityID } from '../../../../shared/domain/core/uniqueEntityID'
 import { BadFormatInDatabaseError } from '../../../../shared/infrastructure/persistence/errors/BadFormatInDatabaseError'
 import { IUserRepository } from '../../../application/ports/output/IUser.repository'
 import { User } from '../../../domain/user'

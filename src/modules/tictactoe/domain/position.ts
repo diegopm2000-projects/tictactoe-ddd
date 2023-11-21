@@ -1,5 +1,5 @@
-import { Either, left, right } from '../../../modules/shared/domain/either'
-import { ValueObject } from '../../../modules/shared/domain/valueObject'
+import { Either, left, right } from '../../shared/domain/core/either'
+import { ValueObject } from '../../shared/domain/core/valueObject'
 import { PositionNotValidError } from './errors/PositionNotValidError'
 
 export type PositionProps = {

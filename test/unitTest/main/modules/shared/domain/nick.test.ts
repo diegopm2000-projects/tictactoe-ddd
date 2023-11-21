@@ -1,7 +1,7 @@
 import { NickNotValidError } from '../../../../../../src/modules/tictactoe/domain/errors/NickNotValidError'
 
 // SUT
-import { Nick } from '../../../../../../src/modules/tictactoe/domain/nick'
+import { Nick } from '../../../../../../src/modules/shared/domain/nick'
 
 describe('Nick - Tests', () => {
   describe('create - Tests', () => {

@@ -1,6 +1,6 @@
-import { Either, left, right } from '../../../modules/shared/domain/either'
-import { ValueObject } from '../../../modules/shared/domain/valueObject'
-import { NickNotValidError } from './errors/NickNotValidError'
+import { Either, left, right } from './core/either'
+import { ValueObject } from './core/valueObject'
+import { NickNotValidError } from '../../tictactoe/domain/errors/NickNotValidError'
 
 export type NickProps = {
   value: string

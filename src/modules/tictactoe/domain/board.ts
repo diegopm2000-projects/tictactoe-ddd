@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { Either, left, right } from '../../../modules/shared/domain/either'
-import { Entity } from '../../../modules/shared/domain/entity'
-import { UniqueEntityID } from '../../../modules/shared/domain/uniqueEntityID'
+import { Either, left, right } from '../../shared/domain/core/either'
+import { Entity } from '../../shared/domain/core/entity'
+import { UniqueEntityID } from '../../shared/domain/core/uniqueEntityID'
 import { Cell } from './cell'
 import { BoardCreationError, ROW_OR_COLUMN } from './errors/BoardCreationError'
 import { CellOccupiedError } from './errors/CellOccupiedError'

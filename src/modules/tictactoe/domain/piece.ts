@@ -1,4 +1,4 @@
-import { ValueObject } from '../../../modules/shared/domain/valueObject'
+import { ValueObject } from '../../shared/domain/core/valueObject'
 
 export enum PIECE_TYPE {
   O = 'O',

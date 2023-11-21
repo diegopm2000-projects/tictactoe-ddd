@@ -1,5 +1,5 @@
 import { IUseCase } from '../../../../shared/application/usecase'
-import { Either } from '../../../../shared/domain/either'
+import { Either } from '../../../../shared/domain/core/either'
 import { UserCredential } from '../../../domain/userCredential'
 import { InternalServerError } from '../../services/errors/InternalServerError'
 import { LoginError } from '../../services/errors/LoginError'

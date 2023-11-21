@@ -1,16 +1,16 @@
 import { Container } from 'inversify'
 import 'reflect-metadata'
 
-import { UserMemoryRepository } from '../../../../../../../src/modules/auth/infrastructure/persistence/inMemory/User.memory.repository'
-import { HashHelper } from '../../../../../../../src/modules/auth/infrastructure/helpers/MockHash.helper'
-import { TYPES } from '../../../../../../../src/modules/shared/infrastructure/dependencyInjection/types'
 import { ILoginResponse, ILoginService } from '../../../../../../../src/modules/auth/application/ports/input/ILogin.service'
-import { DEFAULT_CONTAINER, DEFAULT_EMAIL, DEFAULT_USER } from '../../../../../expectations/expectations'
-import { UserCredential } from '../../../../../../../src/modules/auth/domain/userCredential'
-import { left, right } from '../../../../../../../src/modules/shared/domain/either'
-import { BadFormatInDatabaseError } from '../../../../../../../src/modules/shared/infrastructure/persistence/errors/BadFormatInDatabaseError'
 import { InternalServerError } from '../../../../../../../src/modules/auth/application/services/errors/InternalServerError'
 import { LoginError } from '../../../../../../../src/modules/auth/application/services/errors/LoginError'
+import { UserCredential } from '../../../../../../../src/modules/auth/domain/userCredential'
+import { HashHelper } from '../../../../../../../src/modules/auth/infrastructure/helpers/MockHash.helper'
+import { UserMemoryRepository } from '../../../../../../../src/modules/auth/infrastructure/persistence/inMemory/User.memory.repository'
+import { left, right } from '../../../../../../../src/modules/shared/domain/core/either'
+import { TYPES } from '../../../../../../../src/modules/shared/infrastructure/dependencyInjection/types'
+import { BadFormatInDatabaseError } from '../../../../../../../src/modules/shared/infrastructure/persistence/errors/BadFormatInDatabaseError'
+import { DEFAULT_CONTAINER, DEFAULT_EMAIL, DEFAULT_USER } from '../../../../../expectations/expectations'
 
 // SUT
 const myService = (DEFAULT_CONTAINER as Container).get<ILoginService>(TYPES.ILoginService)

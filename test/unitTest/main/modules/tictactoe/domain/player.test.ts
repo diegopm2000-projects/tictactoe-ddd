@@ -1,6 +1,6 @@
 import 'reflect-metadata'
 
-import { UniqueEntityID } from '../../../../../../src/modules/shared/domain/uniqueEntityID'
+import { UniqueEntityID } from '../../../../../../src/modules/shared/domain/core/uniqueEntityID'
 import { EmailNotValidError } from '../../../../../../src/modules/tictactoe/domain/errors/EmailNotValidError'
 import { NickNotValidError } from '../../../../../../src/modules/tictactoe/domain/errors/NickNotValidError'
 import { DEFAULT_UUID_STR } from '../../../../expectations/expectations'

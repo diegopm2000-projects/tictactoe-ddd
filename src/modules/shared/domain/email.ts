@@ -1,8 +1,8 @@
 import * as EmailValidator from 'email-validator'
 
-import { Either, left, right } from '../../../modules/shared/domain/either'
-import { ValueObject } from '../../../modules/shared/domain/valueObject'
-import { EmailNotValidError } from './errors/EmailNotValidError'
+import { Either, left, right } from './core/either'
+import { ValueObject } from './core/valueObject'
+import { EmailNotValidError } from '../../tictactoe/domain/errors/EmailNotValidError'
 
 export interface EmailProps {
   value: string

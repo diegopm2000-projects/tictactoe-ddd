@@ -6,13 +6,13 @@ import { ALT_UUID_STR, DEFAULT_UUID_STR, MESSAGE_TEST_FAILED } from '../../../ex
 import { UniqueEntityID, UuidNotValidError } from '../../../../../src/modules/shared/domain/uniqueEntityID'
 
 // MOCKS
-jest.mock('uuidv4', () => {
-  const originalModule = jest.requireActual('uuidv4')
+jest.mock('uuid', () => {
+  const originalModule = jest.requireActual('uuid')
 
   return {
     __esModule: true,
     ...originalModule,
-    uuid: () => DEFAULT_UUID_STR,
+    v4: () => DEFAULT_UUID_STR,
   }
 })
 

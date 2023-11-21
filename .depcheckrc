@@ -1,1 +1,1 @@
-ignores: ["@types/jest", "@types/node"]
+ignores: ["@types/jest", "@types/node", "uuid", "@types/uuid"]

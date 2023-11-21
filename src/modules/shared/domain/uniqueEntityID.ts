@@ -1,4 +1,4 @@
-import { isUuid, uuid } from 'uuidv4'
+import { v4 as uuidv4, validate } from 'uuid'
 
 import { Either, left, right } from './either'
 
@@ -22,7 +22,7 @@ export class UniqueEntityID {
   }
 
   static create(uuidStr: string): CreateUniqueEntityIDResponse {
-    if (!isUuid(uuidStr)) {
+    if (!validate(uuidStr)) {
       return left(UuidNotValidError.create(uuidStr))
     }
 
@@ -30,11 +30,11 @@ export class UniqueEntityID {
   }
 
   static validate(uuidStr: string): boolean {
-    return isUuid(uuidStr)
+    return validate(uuidStr)
   }
 
   static generate(): UniqueEntityID {
-    return <UniqueEntityID>this.create(uuid()).value
+    return <UniqueEntityID>this.create(uuidv4()).value
   }
 
   equals(uuid: UniqueEntityID) {

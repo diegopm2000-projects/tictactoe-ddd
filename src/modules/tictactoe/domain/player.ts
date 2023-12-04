@@ -1,19 +1,14 @@
-import { Either, left, right } from '../../shared/domain/core/either'
-import { UniqueEntityID } from '../../shared/domain/core/uniqueEntityID'
 import { AggregateRoot } from '../../shared/domain/core/aggregateRoot'
+import { Either } from '../../shared/domain/core/either'
+import { UniqueEntityID } from '../../shared/domain/core/uniqueEntityID'
 import { Email } from '../../shared/domain/email'
+import { Nick } from '../../shared/domain/nick'
 import { EmailNotValidError } from './errors/EmailNotValidError'
 import { NickNotValidError } from './errors/NickNotValidError'
-import { Nick } from '../../shared/domain/nick'
 
 export interface PlayerProps {
   nick: Nick
   email: Email
-}
-
-export interface PlayerCreationParams {
-  nick: string
-  email: string
 }
 
 export type PlayerCreationResponse = Either<NickNotValidError | EmailNotValidError, Player>
@@ -31,20 +26,7 @@ export class Player extends AggregateRoot<PlayerProps> {
     super(props, id)
   }
 
-  public static create(params: PlayerCreationParams, id?: UniqueEntityID): PlayerCreationResponse {
-    const nickCreationResponse = Nick.create({ value: params.nick })
-    const emailCreationResponse = Email.create({ value: params.email })
-
-    if (nickCreationResponse.isLeft()) {
-      return left(nickCreationResponse.value)
-    }
-    if (emailCreationResponse.isLeft()) {
-      return left(emailCreationResponse.value)
-    }
-
-    const nickValidated: Nick = nickCreationResponse.value
-    const emailValidated: Email = emailCreationResponse.value
-
-    return right(new Player({ nick: nickValidated, email: emailValidated }, id))
+  public static create(props: PlayerProps, id?: UniqueEntityID): Player {
+    return new Player(props, id)
   }
 }

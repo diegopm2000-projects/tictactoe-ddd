@@ -9,9 +9,18 @@ import { Position } from '../../../../../../src/modules/tictactoe/domain/positio
 
 // SUT
 import { GAME_STATUS, GAME_TURN, Game } from '../../../../../../src/modules/tictactoe/domain/game'
+import { Email } from '../../../../../../src/modules/shared/domain/email'
+import { Nick } from '../../../../../../src/modules/shared/domain/nick'
+import { WaitingPlayersError } from '../../../../../../src/modules/tictactoe/domain/errors/WaitingPlayersError'
 
-const PLAYER_X: Player = <Player>Player.create({ email: 'playerX@mail.com', nick: 'playerX' }).value
-const PLAYER_O: Player = <Player>Player.create({ email: 'playerO@mail.com', nick: 'playerO' }).value
+const PLAYER_X_EMAIL: Email = <Email>Email.create({ value: 'playerX@mail.com' }).value
+const PLAYER_O_EMAIL: Email = <Email>Email.create({ value: 'playerO@mail.com' }).value
+
+const PLAYER_X_NICK: Nick = <Nick>Nick.create({ value: 'playerX' }).value
+const PLAYER_O_NICK: Nick = <Nick>Nick.create({ value: 'playerO' }).value
+
+const PLAYER_X: Player = Player.create({ email: PLAYER_X_EMAIL, nick: PLAYER_X_NICK })
+const PLAYER_O: Player = Player.create({ email: PLAYER_O_EMAIL, nick: PLAYER_O_NICK })
 
 const EMPTY_BOARD: Board = <Board>Board.create({
   arrayCells: [
@@ -71,6 +80,41 @@ describe('Game - Tests', () => {
       expect(result.playerX).toStrictEqual(PLAYER_X)
       expect(result.playerO).toStrictEqual(PLAYER_O)
       expect(result.board).toStrictEqual(EMPTY_BOARD)
+    })
+  })
+
+  describe('createNewGame - Tests', () => {
+    it('createNewGame - successfully case when passing playerX', () => {
+      // Arrange
+      const params = {
+        player: PLAYER_X,
+        pieceType: PIECE_TYPE.X,
+      }
+      // Act
+      const result = Game.createNewGame(params)
+      // Assert
+      expect(result).toBeInstanceOf(Game)
+      expect(result.turn).toBe(GAME_TURN.TURN_X)
+      expect(result.status).toBe(GAME_STATUS.WAITING_PLAYERS)
+      expect(result.playerX).toStrictEqual(PLAYER_X)
+      expect(result.playerO).toStrictEqual(undefined)
+      expect(result.board.arrayCells).toStrictEqual(EMPTY_BOARD.arrayCells)
+    })
+    it('createNewGame - successfully case when passing playerO', () => {
+      // Arrange
+      const params = {
+        player: PLAYER_O,
+        pieceType: PIECE_TYPE.O,
+      }
+      // Act
+      const result = Game.createNewGame(params)
+      // Assert
+      expect(result).toBeInstanceOf(Game)
+      expect(result.turn).toBe(GAME_TURN.TURN_X)
+      expect(result.status).toBe(GAME_STATUS.WAITING_PLAYERS)
+      expect(result.playerX).toStrictEqual(undefined)
+      expect(result.playerO).toStrictEqual(PLAYER_O)
+      expect(result.board.arrayCells).toStrictEqual(EMPTY_BOARD.arrayCells)
     })
   })
 
@@ -211,6 +255,34 @@ describe('Game - Tests', () => {
         expect(result.value).toBeInstanceOf(GameHasFinishedError)
         expect(myGame.status).toBe(GAME_STATUS.TIE)
         expect(myGame.turn).toBe(GAME_TURN.TURN_O)
+      })
+
+      it('move - failed case when the game is waiting players (waiting for player_O', () => {
+        // Arrange
+        const params = {
+          playerX: PLAYER_X,
+          board: TIE_GAME_BOARD,
+        }
+        const myGame = Game.create(params)
+        // Act
+        const result = myGame.move(PIECE_TYPE.X, Position.createPosition0(), Position.createPosition0())
+        // Assert
+        expect(result.isLeft())
+        expect(result.value).toBeInstanceOf(WaitingPlayersError)
+      })
+
+      it('move - failed case when the game is waiting players (waiting for player_X', () => {
+        // Arrange
+        const params = {
+          playerO: PLAYER_O,
+          board: TIE_GAME_BOARD,
+        }
+        const myGame = Game.create(params)
+        // Act
+        const result = myGame.move(PIECE_TYPE.X, Position.createPosition0(), Position.createPosition0())
+        // Assert
+        expect(result.isLeft())
+        expect(result.value).toBeInstanceOf(WaitingPlayersError)
       })
     })
   })

@@ -16,7 +16,6 @@ export class LoginService implements IUseCase<ILoginRequest, ILoginResponse> {
     @inject(TYPES.IHashHelper) private hashHelper: IHashHelper
   ) {}
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async execute(request: ILoginRequest): Promise<ILoginResponse> {
     const userFoundResponse = await this.userRepository.getOneByEmail(request.email)
 

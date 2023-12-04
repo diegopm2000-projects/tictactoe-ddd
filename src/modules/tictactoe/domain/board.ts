@@ -39,6 +39,17 @@ export class Board extends Entity<BoardProps> {
     return right(new Board(props, id))
   }
 
+  public static createNewEmptyBoard(): Board {
+    const props = {
+      arrayCells: [
+        [Cell.create(), Cell.create(), Cell.create()],
+        [Cell.create(), Cell.create(), Cell.create()],
+        [Cell.create(), Cell.create(), Cell.create()],
+      ],
+    }
+    return new Board(props)
+  }
+
   getCell(row: Position, column: Position): Cell {
     return this.props.arrayCells[row.value][column.value]
   }

@@ -8,6 +8,7 @@ import { TurnNotValidError } from './errors/TurnNotValidError'
 import { PIECE_TYPE } from './piece'
 import { Player } from './player'
 import { Position } from './position'
+import { WaitingPlayersError } from './errors/WaitingPlayersError'
 
 type Point = { x: number; y: number }
 
@@ -67,6 +68,7 @@ const VICTORY_POSITIONS: Array<Array<Point>> = [
 ]
 
 export enum GAME_STATUS {
+  WAITING_PLAYERS = 'WAITING_PLAYERS',
   PLAYER_X_WINS = 'PLAYER_X_WINS',
   PLAYER_O_WINS = 'PLAYER_O_WINS',
   TIE = 'TIE',
@@ -79,27 +81,27 @@ export enum GAME_TURN {
 }
 
 export type GameProps = {
-  playerX: Player
-  playerO: Player
+  playerX?: Player
+  playerO?: Player
   board: Board
   status: GAME_STATUS
   turn: GAME_TURN
 }
 
 export type GameConstructorParams = {
-  playerX: Player
-  playerO: Player
+  playerX?: Player
+  playerO?: Player
   board: Board
 }
 
 export type MoveResponse = Either<CellOccupiedError | GameHasFinishedError | TurnNotValidError, boolean>
 
 export class Game extends AggregateRoot<GameProps> {
-  get playerX(): Player {
+  get playerX(): Player | undefined {
     return this.props.playerX
   }
 
-  get playerO(): Player {
+  get playerO(): Player | undefined {
     return this.props.playerO
   }
 
@@ -142,7 +144,9 @@ export class Game extends AggregateRoot<GameProps> {
   }
 
   private calculateStatus(): GAME_STATUS {
-    if (this.isXVictory()) {
+    if (this.playerX == undefined || this.playerO == undefined) {
+      return GAME_STATUS.WAITING_PLAYERS
+    } else if (this.isXVictory()) {
       return GAME_STATUS.PLAYER_X_WINS
     } else if (this.isOVictory()) {
       return GAME_STATUS.PLAYER_O_WINS
@@ -168,7 +172,14 @@ export class Game extends AggregateRoot<GameProps> {
     }
   }
 
-  public static create(params: GameConstructorParams, id?: UniqueEntityID): Game {
+  public static create(
+    params: {
+      playerX?: Player
+      playerO?: Player
+      board: Board
+    },
+    id?: UniqueEntityID
+  ): Game {
     const props = {
       ...params,
       status: GAME_STATUS.IN_PROGRESS, // Pass IN_PROGRESS Initially
@@ -185,9 +196,24 @@ export class Game extends AggregateRoot<GameProps> {
     return game
   }
 
+  public static createNewGame(params: { player: Player; pieceType: PIECE_TYPE }) {
+    const props = {
+      board: Board.createNewEmptyBoard(),
+      playerX: params.pieceType == PIECE_TYPE.X ? params.player : undefined,
+      playerO: params.pieceType == PIECE_TYPE.O ? params.player : undefined,
+      status: GAME_STATUS.WAITING_PLAYERS,
+      turn: GAME_TURN.TURN_X,
+    }
+
+    return new Game(props)
+  }
+
   public move(pieceType: PIECE_TYPE, row: Position, column: Position): MoveResponse {
-    if (this.status != GAME_STATUS.IN_PROGRESS) {
+    if (this.status == GAME_STATUS.PLAYER_O_WINS || this.status == GAME_STATUS.PLAYER_X_WINS || this.status == GAME_STATUS.TIE) {
       return left(GameHasFinishedError.create())
+    } else if (this.status == GAME_STATUS.WAITING_PLAYERS) {
+      const missingPlayerPieceType = this.playerX == undefined ? PIECE_TYPE.X : PIECE_TYPE.O
+      return left(WaitingPlayersError.create(missingPlayerPieceType))
     } else if ((pieceType == PIECE_TYPE.X && this.turn == GAME_TURN.TURN_O) || (pieceType == PIECE_TYPE.O && this.turn == GAME_TURN.TURN_X)) {
       return left(TurnNotValidError.create(pieceType))
     }

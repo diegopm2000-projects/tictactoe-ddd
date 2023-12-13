@@ -19,24 +19,25 @@ export class PlayerModelPersistenceConverter implements IModelPersistenceConvert
     }
   }
 
-  modelPersistenceToModel(userModelPersistence: PlayerModelPersistence): ModelPersistenceToModelResponse {
-    const uniqueIdCreationResponse = UniqueEntityID.create(userModelPersistence.id)
+  modelPersistenceToModel(playerModelPersistence: PlayerModelPersistence): ModelPersistenceToModelResponse {
+    const uniqueIdCreationResponse = UniqueEntityID.create(playerModelPersistence.id)
     if (uniqueIdCreationResponse.isLeft()) {
       return left(uniqueIdCreationResponse.value)
     }
-    const nickCreationResponse = Nick.create({ value: userModelPersistence.nick })
+    const nickCreationResponse = Nick.create({ value: playerModelPersistence.nick })
     if (nickCreationResponse.isLeft()) {
       return left(nickCreationResponse.value)
     }
-    const emailCreationResponse = Email.create({ value: userModelPersistence.email })
+    const emailCreationResponse = Email.create({ value: playerModelPersistence.email })
     if (emailCreationResponse.isLeft()) {
       return left(emailCreationResponse.value)
     }
 
+    const id = uniqueIdCreationResponse.value
     const email = emailCreationResponse.value
     const nick = nickCreationResponse.value
 
-    return right(Player.create({ email, nick }, uniqueIdCreationResponse.value))
+    return right(Player.create({ email, nick }, id))
   }
 
   public static getInstance() {

@@ -8,4 +8,5 @@ export const TYPES = {
   // Service
   ILoginService: Symbol.for('ILoginService'),
   IRegisterService: Symbol.for('IRegisterService'),
+  ICreateGameService: Symbol.for('ICreateGameService'),
 }

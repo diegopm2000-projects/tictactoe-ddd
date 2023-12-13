@@ -12,7 +12,7 @@ jest.mock('uuid', () => {
   return {
     __esModule: true,
     ...originalModule,
-    v4: () => DEFAULT_UUID_STR,
+    v4: () => '0caaf0d6-d90e-4aea-9d4a-1279536a09bc', // DEFAULT_UUID_STR
   }
 })
 

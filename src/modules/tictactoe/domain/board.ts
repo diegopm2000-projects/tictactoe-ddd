@@ -4,7 +4,7 @@ import { Either, left, right } from '../../shared/domain/core/either'
 import { Entity } from '../../shared/domain/core/entity'
 import { UniqueEntityID } from '../../shared/domain/core/uniqueEntityID'
 import { Cell } from './cell'
-import { BoardCreationError, ROW_OR_COLUMN } from './errors/BoardCreationError'
+import { BoardCreationError } from './errors/BoardCreationError'
 import { CellOccupiedError } from './errors/CellOccupiedError'
 import { PIECE_TYPE, Piece } from './piece'
 import { Position } from './position'
@@ -28,12 +28,12 @@ export class Board extends Entity<BoardProps> {
   public static create(props: BoardProps, id?: UniqueEntityID): CreateBoardResponse {
     // Check number of rows
     if (props.arrayCells.length != 3) {
-      return left(BoardCreationError.create(ROW_OR_COLUMN.ROW))
+      return left(BoardCreationError.create('Board creation failed. There is a row with a size that is not valid. Must be 3'))
     }
     // Check all number of columns in each row
     const badColumnFound = props.arrayCells.find((column: Array<Cell>) => column.length != 3)
     if (badColumnFound) {
-      return left(BoardCreationError.create(ROW_OR_COLUMN.COLUMN))
+      return left(BoardCreationError.create('Board creation failed. There is a column with a size that is not valid. Must be 3'))
     }
 
     return right(new Board(props, id))

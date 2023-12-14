@@ -1,28 +1,20 @@
+import 'reflect-metadata'
+
 import { Board } from '../../../../../../src/modules/tictactoe/domain/board'
 import { Cell } from '../../../../../../src/modules/tictactoe/domain/cell'
 import { CellOccupiedError } from '../../../../../../src/modules/tictactoe/domain/errors/CellOccupiedError'
 import { GameHasFinishedError } from '../../../../../../src/modules/tictactoe/domain/errors/GameHasFinishedError'
 import { TurnNotValidError } from '../../../../../../src/modules/tictactoe/domain/errors/TurnNotValidError'
+import { WaitingPlayersError } from '../../../../../../src/modules/tictactoe/domain/errors/WaitingPlayersError'
 import { PIECE_TYPE, Piece } from '../../../../../../src/modules/tictactoe/domain/piece'
-import { Player } from '../../../../../../src/modules/tictactoe/domain/player'
 import { Position } from '../../../../../../src/modules/tictactoe/domain/position'
+import { PLAYER_O, PLAYER_X } from '../../../../expectations/expectations'
 
 // SUT
 import { GAME_STATUS, GAME_TURN, Game } from '../../../../../../src/modules/tictactoe/domain/game'
-import { Email } from '../../../../../../src/modules/shared/domain/email'
-import { Nick } from '../../../../../../src/modules/shared/domain/nick'
-import { WaitingPlayersError } from '../../../../../../src/modules/tictactoe/domain/errors/WaitingPlayersError'
 
-// TODO - estos players están creados en el expectations, quitarlos de aquí
-
-const PLAYER_X_EMAIL: Email = <Email>Email.create({ value: 'playerX@mail.com' }).value
-const PLAYER_O_EMAIL: Email = <Email>Email.create({ value: 'playerO@mail.com' }).value
-
-const PLAYER_X_NICK: Nick = <Nick>Nick.create({ value: 'playerX' }).value
-const PLAYER_O_NICK: Nick = <Nick>Nick.create({ value: 'playerO' }).value
-
-const PLAYER_X: Player = Player.create({ email: PLAYER_X_EMAIL, nick: PLAYER_X_NICK })
-const PLAYER_O: Player = Player.create({ email: PLAYER_O_EMAIL, nick: PLAYER_O_NICK })
+// const PLAYER_X: Player = Player.create({ email: PLAYER_X_EMAIL, nick: PLAYER_X_NICK })
+// const PLAYER_O: Player = Player.create({ email: PLAYER_O_EMAIL, nick: PLAYER_O_NICK })
 
 const EMPTY_BOARD: Board = <Board>Board.create({
   arrayCells: [

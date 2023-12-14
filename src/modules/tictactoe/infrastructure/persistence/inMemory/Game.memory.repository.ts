@@ -54,8 +54,6 @@ export class GameMemoryRepository implements IGameRepository {
     let playerXFound: Player | undefined
     let playerOFound: Player | undefined
 
-    // TODO - Esto se puede mejorar para no repetir código sacandolo a una función privada parametrizada
-
     if (objFound && objFound.idPlayerX) {
       const playerXIdCreationResponse = UniqueEntityID.create(objFound.idPlayerX)
       if (playerXIdCreationResponse.isLeft()) {

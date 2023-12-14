@@ -1,9 +1,8 @@
 import 'reflect-metadata'
 
-import { UuidNotValidError } from '../../../../../../../../src/modules/shared/domain/core/uniqueEntityID'
 import { Board } from '../../../../../../../../src/modules/tictactoe/domain/board'
 import { Cell } from '../../../../../../../../src/modules/tictactoe/domain/cell'
-import { CellNotValidError } from '../../../../../../../../src/modules/tictactoe/domain/errors/CellNotValidError'
+import { GameCreationError } from '../../../../../../../../src/modules/tictactoe/domain/errors/GameCreationError'
 import { GAME_STATUS, GAME_TURN, Game } from '../../../../../../../../src/modules/tictactoe/domain/game'
 import { PIECE_TYPE, Piece } from '../../../../../../../../src/modules/tictactoe/domain/piece'
 import { DEFAULT_UNIQUE_ID, DEFAULT_UUID_STR, PLAYER_O, PLAYER_O_UUID_STR, PLAYER_X, PLAYER_X_UUID_STR } from '../../../../../../expectations/expectations'
@@ -117,7 +116,7 @@ describe('GameModelPersistenceConverter - Tests', () => {
       const resultResponse = GameModelPersistenceConverter.getInstance().modelPersistenceToModel({ gameMP, playerX: PLAYER_X, playerO: PLAYER_O })
       // Assert
       expect(resultResponse.isLeft())
-      expect(resultResponse.value).toBeInstanceOf(CellNotValidError)
+      expect(resultResponse.value).toBeInstanceOf(GameCreationError)
     })
     it('modelPersistenceToModel - failed case when the game id is not valid', () => {
       // Arrange
@@ -137,7 +136,7 @@ describe('GameModelPersistenceConverter - Tests', () => {
       const resultResponse = GameModelPersistenceConverter.getInstance().modelPersistenceToModel({ gameMP, playerX: PLAYER_X, playerO: PLAYER_O })
       // Assert
       expect(resultResponse.isLeft())
-      expect(resultResponse.value).toBeInstanceOf(UuidNotValidError)
+      expect(resultResponse.value).toBeInstanceOf(GameCreationError)
     })
   })
 })

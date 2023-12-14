@@ -1,4 +1,4 @@
-import { ApplicationError } from '../../../shared/application/applicationError'
+import { ApplicationError } from '../../../shared/application/core/applicationError'
 
 export class JoinNotPossibleError extends ApplicationError {
   constructor(msg: string) {

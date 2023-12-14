@@ -1,4 +1,4 @@
-import { ApplicationError } from '../../../shared/application/applicationError'
+import { ApplicationError } from '../../../shared/application/core/applicationError'
 import { UniqueEntityID } from '../../../shared/domain/core/uniqueEntityID'
 
 export class PlayerNotFoundError extends ApplicationError {

@@ -1,6 +1,6 @@
 import 'reflect-metadata'
 
-import { User } from '../../../../../../../../src/modules/auth/domain/user'
+import { User } from '../../../../../../../../src/modules/auth/domain/model/user'
 import { BadFormatInDatabaseError } from '../../../../../../../../src/modules/shared/infrastructure/persistence/errors/BadFormatInDatabaseError'
 import { ALT_UNIQUE_ID, DEFAULT_EMAIL, DEFAULT_HASHED_SECRET, DEFAULT_USER, DEFAULT_UUID_STR } from '../../../../../../expectations/expectations'
 

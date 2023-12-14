@@ -2,7 +2,7 @@ import 'reflect-metadata'
 
 import { BadFormatInDatabaseError } from '../../../../../../../../src/modules/shared/infrastructure/persistence/errors/BadFormatInDatabaseError'
 import { ALT_UNIQUE_ID, PLAYER_X, PLAYER_X_UUID_STR } from '../../../../../../expectations/expectations'
-import { Player } from '../../../../../../../../src/modules/tictactoe/domain/player'
+import { Player } from '../../../../../../../../src/modules/tictactoe/domain/model/player'
 
 // SUT
 import { PlayerMemoryRepository } from '../../../../../../../../src/modules/tictactoe/infrastructure/persistence/inMemory/Player.memory.repository'

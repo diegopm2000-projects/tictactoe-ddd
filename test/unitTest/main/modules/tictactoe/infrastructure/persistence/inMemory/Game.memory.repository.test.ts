@@ -1,14 +1,14 @@
 import 'reflect-metadata'
 
+import { BadFormatInDatabaseError } from '../../../../../../../../src/modules/shared/infrastructure/persistence/errors/BadFormatInDatabaseError'
+import { Board } from '../../../../../../../../src/modules/tictactoe/domain/model/board'
+import { Cell } from '../../../../../../../../src/modules/tictactoe/domain/model/cell'
+import { GAME_STATUS, GAME_TURN, Game } from '../../../../../../../../src/modules/tictactoe/domain/model/game'
 import { PlayerMemoryRepository } from '../../../../../../../../src/modules/tictactoe/infrastructure/persistence/inMemory/Player.memory.repository'
-import { GAME_STATUS, GAME_TURN, Game } from '../../../../../../../../src/modules/tictactoe/domain/game'
-import { Board } from '../../../../../../../../src/modules/tictactoe/domain/board'
-import { Cell } from '../../../../../../../../src/modules/tictactoe/domain/cell'
 import { DEFAULT_UNIQUE_ID, DEFAULT_UUID_STR, PLAYER_O, PLAYER_O_UUID_STR, PLAYER_X, PLAYER_X_UUID_STR } from '../../../../../../expectations/expectations'
 
 // SUT
 import { GameMemoryRepository } from '../../../../../../../../src/modules/tictactoe/infrastructure/persistence/inMemory/Game.memory.repository'
-import { BadFormatInDatabaseError } from '../../../../../../../../src/modules/shared/infrastructure/persistence/errors/BadFormatInDatabaseError'
 
 const myPlayerRepository = new PlayerMemoryRepository()
 myPlayerRepository.setDatabase([

@@ -1,6 +1,6 @@
 import { injectable } from 'inversify'
 
-import { IHashHelper } from '../../application/ports/output/IHash.helper'
+import { IHashHelper } from '../../application/helpers/IHash.helper'
 
 export const MOCK_HASHED_SECRET = 'myhashedsecret'
 

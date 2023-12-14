@@ -2,6 +2,11 @@
 
 This is an implementation with typescript of the Domain Layer of the popular game of TicTacToe (aka OXO) using Domain Driven Design.
 
+## 0. Pendant Tasks
+
+- Refactor in tictactoe services to avoid repeated code
+- Start the api in infrastructure (using a prompt client as api)
+
 ## 1. Clean Architecture typical representation
 
 In this project we will only focus on the domain layer, the inner layer of the clean architecture

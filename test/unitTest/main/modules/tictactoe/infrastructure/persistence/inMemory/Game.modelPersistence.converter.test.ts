@@ -1,11 +1,11 @@
 import 'reflect-metadata'
 
-import { Board } from '../../../../../../../../src/modules/tictactoe/domain/board'
-import { Cell } from '../../../../../../../../src/modules/tictactoe/domain/cell'
 import { GameCreationError } from '../../../../../../../../src/modules/tictactoe/domain/errors/GameCreationError'
-import { GAME_STATUS, GAME_TURN, Game } from '../../../../../../../../src/modules/tictactoe/domain/game'
-import { PIECE_TYPE, Piece } from '../../../../../../../../src/modules/tictactoe/domain/piece'
 import { DEFAULT_UNIQUE_ID, DEFAULT_UUID_STR, PLAYER_O, PLAYER_O_UUID_STR, PLAYER_X, PLAYER_X_UUID_STR } from '../../../../../../expectations/expectations'
+import { Board } from '../../../../../../../../src/modules/tictactoe/domain/model/board'
+import { Cell } from '../../../../../../../../src/modules/tictactoe/domain/model/cell'
+import { Game, GAME_STATUS, GAME_TURN } from '../../../../../../../../src/modules/tictactoe/domain/model/game'
+import { Piece, PIECE_TYPE } from '../../../../../../../../src/modules/tictactoe/domain/model/piece'
 
 // SUT
 import { GameModelPersistenceConverter } from '../../../../../../../../src/modules/tictactoe/infrastructure/persistence/inMemory/Game.modelPersistence.converter'

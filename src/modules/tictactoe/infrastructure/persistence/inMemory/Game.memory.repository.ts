@@ -3,13 +3,13 @@ import { inject, injectable } from 'inversify'
 import { Either, left, right } from '../../../../shared/domain/core/either'
 import { UniqueEntityID } from '../../../../shared/domain/core/uniqueEntityID'
 import { BadFormatInDatabaseError } from '../../../../shared/infrastructure/persistence/errors/BadFormatInDatabaseError'
-import { IGameRepository } from '../../../application/ports/output/IGame.repository'
+import { IGameRepository } from '../../../domain/repositories/IGame.repository'
 import { GameModelPersistence } from './Game.modelPersistence'
 import { GameModelPersistenceConverter } from './Game.modelPersistence.converter'
-import { Game } from '../../../domain/game'
-import { IPlayerRepository } from '../../../application/ports/output/IPlayer.repository'
+import { Game } from '../../../domain/model/game'
+import { IPlayerRepository } from '../../../domain/repositories/IPlayer.repository'
 import { TYPES } from '../../../../shared/infrastructure/dependencyInjection/types'
-import { Player } from '../../../domain/player'
+import { Player } from '../../../domain/model/player'
 
 @injectable()
 export class GameMemoryRepository implements IGameRepository {

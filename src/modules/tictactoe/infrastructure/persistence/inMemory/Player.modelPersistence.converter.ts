@@ -1,11 +1,11 @@
 import { Either, left, right } from '../../../../shared/domain/core/either'
 import { UniqueEntityID, UuidNotValidError } from '../../../../shared/domain/core/uniqueEntityID'
-import { Email } from '../../../../shared/domain/email'
-import { Nick } from '../../../../shared/domain/nick'
+import { Email } from '../../../../shared/domain/model/email'
+import { Nick } from '../../../../shared/domain/model/nick'
 import { IModelPersistenceConverter } from '../../../../shared/infrastructure/persistence/IModelPersistenceConverter'
 import { EmailNotValidError } from '../../../domain/errors/EmailNotValidError'
 import { NickNotValidError } from '../../../domain/errors/NickNotValidError'
-import { Player } from '../../../domain/player'
+import { Player } from '../../../domain/model/player'
 import { PlayerModelPersistence } from './Player.modelPersistence'
 
 export type ModelPersistenceToModelResponse = Either<UuidNotValidError | NickNotValidError | EmailNotValidError, Player>

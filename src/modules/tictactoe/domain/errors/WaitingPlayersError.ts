@@ -1,5 +1,5 @@
 import { DomainError } from '../../../shared/domain/core/domainError'
-import { PIECE_TYPE } from '../piece'
+import { PIECE_TYPE } from '../model/piece'
 
 export class WaitingPlayersError extends DomainError {
   constructor(pieceType: PIECE_TYPE) {

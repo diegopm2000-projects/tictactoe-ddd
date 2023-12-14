@@ -1,7 +1,7 @@
 import 'reflect-metadata'
 
 import { DEFAULT_EMAIL, DEFAULT_UNIQUE_ID, DEFAULT_NICK } from '../../../../../../expectations/expectations'
-import { Player } from '../../../../../../../../src/modules/tictactoe/domain/player'
+import { Player } from '../../../../../../../../src/modules/tictactoe/domain/model/player'
 
 // SUT
 import { PlayerModelPersistenceConverter } from '../../../../../../../../src/modules/tictactoe/infrastructure/persistence/inMemory/Player.modelPersistence.converter'

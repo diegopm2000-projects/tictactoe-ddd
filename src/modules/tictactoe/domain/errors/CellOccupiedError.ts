@@ -1,5 +1,5 @@
 import { DomainError } from '../../../shared/domain/core/domainError'
-import { Position } from '../position'
+import { Position } from '../model/position'
 
 export class CellOccupiedError extends DomainError {
   constructor(row: Position, column: Position) {

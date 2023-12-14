@@ -10,8 +10,11 @@ import { PIECE_TYPE, Piece } from '../../../domain/piece'
 import { Player } from '../../../domain/player'
 import { GameModelPersistence } from './Game.modelPersistence'
 import { Position } from '../../../domain/position'
+import { CellNotValidError } from '../../../domain/errors/CellNotValidError'
 
-export type ModelPersistenceToModelResponse = Either<UuidNotValidError | NickNotValidError | EmailNotValidError | BoardCreationError, Game>
+type CellMdodelPersistenceToCellModelResponse = Either<CellNotValidError, Cell>
+
+export type ModelPersistenceToModelResponse = Either<UuidNotValidError | NickNotValidError | EmailNotValidError | BoardCreationError | CellNotValidError, Game>
 
 class CellModelPersistenceConverter {
   modelToModelPersistence(cell: Cell): string {
@@ -24,13 +27,15 @@ class CellModelPersistenceConverter {
     }
   }
 
-  modelPersistenceToModel(mpCell: string): Cell {
+  modelPersistenceToModel(mpCell: string): CellMdodelPersistenceToCellModelResponse {
     if (mpCell == '-') {
-      return Cell.create()
+      return right(Cell.create())
     } else if (mpCell == 'X') {
-      return Cell.create({ cell: Piece.create(PIECE_TYPE.X) })
+      return right(Cell.create({ cell: Piece.create(PIECE_TYPE.X) }))
+    } else if (mpCell == 'O') {
+      return right(Cell.create({ cell: Piece.create(PIECE_TYPE.O) }))
     } else {
-      return Cell.create({ cell: Piece.create(PIECE_TYPE.O) })
+      return left(CellNotValidError.create(mpCell))
     }
   }
 
@@ -45,6 +50,8 @@ export class GameModelPersistenceConverter {
     const POS_0 = Position.createPosition0()
     const POS_1 = Position.createPosition1()
     const POS_2 = Position.createPosition2()
+
+    // TODO - esto es mejorable usando un array para no repetir tanto código
 
     return {
       id: game.id.value,
@@ -73,6 +80,9 @@ export class GameModelPersistenceConverter {
   }
 
   modelPersistenceToModel(params: { gameMP: GameModelPersistence; playerX?: Player; playerO?: Player }): ModelPersistenceToModelResponse {
+    // TODO: Realmente solo deberíamos devolver el error del BoardCreationResponse, y luego
+    // indicando el porqué añadiendo la causa interna.
+
     // Obtaining the id
     const uniqueIdCreationResponse = UniqueEntityID.create(params.gameMP.id)
     if (uniqueIdCreationResponse.isLeft()) {
@@ -85,31 +95,23 @@ export class GameModelPersistenceConverter {
 
     const cellMPConverter = CellModelPersistenceConverter.getInstance()
 
-    const boardCreationResponse = Board.create({
-      arrayCells: [
-        [
-          cellMPConverter.modelPersistenceToModel(params.gameMP.board[0][0]),
-          cellMPConverter.modelPersistenceToModel(params.gameMP.board[0][1]),
-          cellMPConverter.modelPersistenceToModel(params.gameMP.board[0][2]),
-        ],
-        [
-          cellMPConverter.modelPersistenceToModel(params.gameMP.board[1][0]),
-          cellMPConverter.modelPersistenceToModel(params.gameMP.board[1][1]),
-          cellMPConverter.modelPersistenceToModel(params.gameMP.board[1][2]),
-        ],
-        [
-          cellMPConverter.modelPersistenceToModel(params.gameMP.board[2][0]),
-          cellMPConverter.modelPersistenceToModel(params.gameMP.board[2][1]),
-          cellMPConverter.modelPersistenceToModel(params.gameMP.board[2][2]),
-        ],
-      ],
-    })
+    const myArrayCells: Array<Array<Cell>> = [[], [], []]
 
-    if (boardCreationResponse.isLeft()) {
-      return left(boardCreationResponse.value)
+    for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < 3; j++) {
+        const cellResponse = cellMPConverter.modelPersistenceToModel(params.gameMP.board[i][j])
+        if (cellResponse.isLeft()) {
+          return left(cellResponse.value)
+        }
+        myArrayCells[i][j] = <Cell>cellResponse.value
+      }
     }
 
-    const board = boardCreationResponse.value
+    const boardCreationResponse = Board.create({
+      arrayCells: myArrayCells,
+    })
+
+    const board = <Board>boardCreationResponse.value
 
     const game = Game.create(
       {

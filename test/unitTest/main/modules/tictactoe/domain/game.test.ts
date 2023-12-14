@@ -13,6 +13,8 @@ import { Email } from '../../../../../../src/modules/shared/domain/email'
 import { Nick } from '../../../../../../src/modules/shared/domain/nick'
 import { WaitingPlayersError } from '../../../../../../src/modules/tictactoe/domain/errors/WaitingPlayersError'
 
+// TODO - estos players están creados en el expectations, quitarlos de aquí
+
 const PLAYER_X_EMAIL: Email = <Email>Email.create({ value: 'playerX@mail.com' }).value
 const PLAYER_O_EMAIL: Email = <Email>Email.create({ value: 'playerO@mail.com' }).value
 

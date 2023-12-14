@@ -1,6 +1,6 @@
 import 'reflect-metadata'
 
-import { DEFAULT_EMAIL, DEFAULT_ID, DEFAULT_NICK } from '../../../../../../expectations/expectations'
+import { DEFAULT_EMAIL, DEFAULT_UNIQUE_ID, DEFAULT_NICK } from '../../../../../../expectations/expectations'
 import { Player } from '../../../../../../../../src/modules/tictactoe/domain/player'
 
 // SUT
@@ -18,7 +18,7 @@ describe('PlayerModelPersistenceConverter - Tests', () => {
           email: DEFAULT_EMAIL,
           nick: DEFAULT_NICK,
         },
-        DEFAULT_ID
+        DEFAULT_UNIQUE_ID
       )
       // Act
       const result = PlayerModelPersistenceConverter.getInstance().modelToModelPersistence(player)
@@ -34,7 +34,7 @@ describe('PlayerModelPersistenceConverter - Tests', () => {
       it('modelPersistenceToModel - default successfully case', () => {
         // Arrange
         const userModelPersistence = {
-          id: DEFAULT_ID.value,
+          id: DEFAULT_UNIQUE_ID.value,
           nick: DEFAULT_NICK.value,
           email: DEFAULT_EMAIL.value,
         }
@@ -66,7 +66,7 @@ describe('PlayerModelPersistenceConverter - Tests', () => {
       it('modelPersistenceToModel - failed case when nick is not valid', () => {
         // Arrange
         const userModelPersistence = {
-          id: DEFAULT_ID.value,
+          id: DEFAULT_UNIQUE_ID.value,
           nick: '',
           email: DEFAULT_EMAIL.value,
         }
@@ -79,7 +79,7 @@ describe('PlayerModelPersistenceConverter - Tests', () => {
       it('modelPersistenceToModel - failed case when email is not valid', () => {
         // Arrange
         const userModelPersistence = {
-          id: DEFAULT_ID.value,
+          id: DEFAULT_UNIQUE_ID.value,
           nick: DEFAULT_NICK.value,
           email: '',
         }

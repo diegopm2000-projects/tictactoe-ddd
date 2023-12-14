@@ -39,7 +39,7 @@ export class PlayerMemoryRepository implements IPlayerRepository {
   }
 
   async getOneById(id: UniqueEntityID): Promise<Either<BadFormatInDatabaseError, Player | undefined>> {
-    const objFound = this._database.find((Player: PlayerModelPersistence) => Player.id == id.value)
+    const objFound = this._database.find((player: PlayerModelPersistence) => player.id == id.value)
     return Promise.resolve(this.innerObjConverter(objFound))
   }
 

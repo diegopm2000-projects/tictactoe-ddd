@@ -2,7 +2,7 @@ import 'reflect-metadata'
 
 import { User } from '../../../../../../../../src/modules/auth/domain/user'
 import { BadFormatInDatabaseError } from '../../../../../../../../src/modules/shared/infrastructure/persistence/errors/BadFormatInDatabaseError'
-import { ALT_ID, DEFAULT_EMAIL, DEFAULT_HASHED_SECRET, DEFAULT_USER, DEFAULT_UUID_STR } from '../../../../../../expectations/expectations'
+import { ALT_UNIQUE_ID, DEFAULT_EMAIL, DEFAULT_HASHED_SECRET, DEFAULT_USER, DEFAULT_UUID_STR } from '../../../../../../expectations/expectations'
 
 // SUT
 import { UserMemoryRepository } from '../../../../../../../../src/modules/auth/infrastructure/persistence/inMemory/User.memory.repository'
@@ -49,7 +49,7 @@ describe('UserMemoryRepository - Tests', () => {
       // Act
       await myUserMemoryRepository.save(DEFAULT_USER)
       // Assert
-      const response = await myUserMemoryRepository.getOneById(ALT_ID)
+      const response = await myUserMemoryRepository.getOneById(ALT_UNIQUE_ID)
       expect(response.isRight()).toBe(true)
       expect(response.value).toBeUndefined()
     })

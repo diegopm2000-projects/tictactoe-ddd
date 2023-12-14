@@ -1,16 +1,16 @@
 import { Container } from 'inversify'
 import 'reflect-metadata'
 
-import { DEFAULT_CONTAINER, PLAYER_X, PLAYER_X_CREDENTIALS } from '../../../../../expectations/expectations'
+import { InternalServerError } from '../../../../../../../src/modules/auth/application/services/errors/InternalServerError'
+import { left, right } from '../../../../../../../src/modules/shared/domain/core/either'
 import { TYPES } from '../../../../../../../src/modules/shared/infrastructure/dependencyInjection/types'
+import { BadFormatInDatabaseError } from '../../../../../../../src/modules/shared/infrastructure/persistence/errors/BadFormatInDatabaseError'
+import { PlayerNotFoundError } from '../../../../../../../src/modules/tictactoe/application/errors/PlayerNotFoundError'
 import { ICreateGameService } from '../../../../../../../src/modules/tictactoe/application/ports/input/ICreateGame.service'
 import { PIECE_TYPE } from '../../../../../../../src/modules/tictactoe/domain/piece'
-import { left, right } from '../../../../../../../src/modules/shared/domain/core/either'
-import { PlayerMemoryRepository } from '../../../../../../../src/modules/tictactoe/infrastructure/persistence/inMemory/Player.memory.repository'
 import { GameMemoryRepository } from '../../../../../../../src/modules/tictactoe/infrastructure/persistence/inMemory/Game.memory.repository'
-import { BadFormatInDatabaseError } from '../../../../../../../src/modules/shared/infrastructure/persistence/errors/BadFormatInDatabaseError'
-import { InternalServerError } from '../../../../../../../src/modules/auth/application/services/errors/InternalServerError'
-import { PlayerNotFoundError } from '../../../../../../../src/modules/tictactoe/domain/errors/PlayerNotFoundError'
+import { PlayerMemoryRepository } from '../../../../../../../src/modules/tictactoe/infrastructure/persistence/inMemory/Player.memory.repository'
+import { DEFAULT_CONTAINER, PLAYER_X, PLAYER_X_CREDENTIALS } from '../../../../../expectations/expectations'
 
 // SUT
 const myService = (DEFAULT_CONTAINER as Container).get<ICreateGameService>(TYPES.ICreateGameService)

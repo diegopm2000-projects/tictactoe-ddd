@@ -7,7 +7,7 @@ import { IGameRepository } from '../ports/output/IGame.repository'
 import { Game } from '../../domain/game'
 import { InternalServerError } from '../../../auth/application/services/errors/InternalServerError'
 import { left, right } from '../../../shared/domain/core/either'
-import { PlayerNotFoundError } from '../../domain/errors/PlayerNotFoundError'
+import { PlayerNotFoundError } from '../errors/PlayerNotFoundError'
 import { IPlayerRepository } from '../ports/output/IPlayer.repository'
 
 @injectable()

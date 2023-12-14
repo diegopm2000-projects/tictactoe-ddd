@@ -3,14 +3,13 @@ import { UserCredential } from '../../../../auth/domain/userCredential'
 import { IUseCase } from '../../../../shared/application/usecase'
 import { Either } from '../../../../shared/domain/core/either'
 import { UniqueEntityID } from '../../../../shared/domain/core/uniqueEntityID'
-import { PIECE_TYPE } from '../../../domain/piece'
+import { JoinNotPossibleError } from '../../errors/JoinNotPossibleError'
 
-// TODO - mover los interfaces de los servicios a la carpeta services
-export interface ICreateGameRequest {
+export interface IJoinGameRequest {
   userCredential: UserCredential
-  pieceType: PIECE_TYPE
+  idGame: UniqueEntityID
 }
 
-export type ICreateGameResponse = Either<InternalServerError, UniqueEntityID>
+export type IJoinGameResponse = Either<InternalServerError | JoinNotPossibleError, boolean>
 
-export interface ICreateGameService extends IUseCase<ICreateGameRequest, ICreateGameResponse> {}
+export interface IJoinGameService extends IUseCase<IJoinGameRequest, IJoinGameResponse> {}

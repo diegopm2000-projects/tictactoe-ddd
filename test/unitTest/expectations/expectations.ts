@@ -5,6 +5,8 @@ import { UniqueEntityID } from '../../../src/modules/shared/domain/core/uniqueEn
 import { Email } from '../../../src/modules/shared/domain/email'
 import { Nick } from '../../../src/modules/shared/domain/nick'
 import { DependencyContainer } from '../../../src/modules/shared/infrastructure/dependencyInjection/dependencyContainer'
+import { Board } from '../../../src/modules/tictactoe/domain/board'
+import { Cell } from '../../../src/modules/tictactoe/domain/cell'
 import { Game } from '../../../src/modules/tictactoe/domain/game'
 import { PIECE_TYPE } from '../../../src/modules/tictactoe/domain/piece'
 import { Player } from '../../../src/modules/tictactoe/domain/player'
@@ -51,5 +53,13 @@ export const DEFAULT_USER: User = <User>User.create({ email: DEFAULT_EMAIL, nick
 
 export const PLAYER_X: Player = Player.create({ email: PLAYER_X_EMAIL, nick: PLAYER_X_NICK }, PLAYER_X_UNIQUE_ID)
 export const PLAYER_O: Player = Player.create({ email: PLAYER_O_EMAIL, nick: PLAYER_O_NICK }, PLAYER_O_UNIQUE_ID)
+
+export const EMPTY_BOARD: Board = <Board>Board.create({
+  arrayCells: [
+    [Cell.create(), Cell.create(), Cell.create()],
+    [Cell.create(), Cell.create(), Cell.create()],
+    [Cell.create(), Cell.create(), Cell.create()],
+  ],
+}).value
 
 export const DEFAULT_GAME: Game = <Game>Game.createNewGame({ player: PLAYER_X, pieceType: PIECE_TYPE.X })

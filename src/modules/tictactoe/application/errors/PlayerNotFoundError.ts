@@ -1,7 +1,7 @@
-import { DomainError } from '../../../shared/domain/core/domainError'
+import { ApplicationError } from '../../../shared/application/applicationError'
 import { UniqueEntityID } from '../../../shared/domain/core/uniqueEntityID'
 
-export class PlayerNotFoundError extends DomainError {
+export class PlayerNotFoundError extends ApplicationError {
   constructor(uuid: UniqueEntityID) {
     super(`Player with id: ${uuid.value} was not found in the system`)
   }

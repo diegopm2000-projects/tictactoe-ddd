@@ -8,21 +8,11 @@ import { TurnNotValidError } from '../../../../../../src/modules/tictactoe/domai
 import { WaitingPlayersError } from '../../../../../../src/modules/tictactoe/domain/errors/WaitingPlayersError'
 import { PIECE_TYPE, Piece } from '../../../../../../src/modules/tictactoe/domain/piece'
 import { Position } from '../../../../../../src/modules/tictactoe/domain/position'
-import { PLAYER_O, PLAYER_X } from '../../../../expectations/expectations'
+import { EMPTY_BOARD, PLAYER_O, PLAYER_X } from '../../../../expectations/expectations'
 
 // SUT
 import { GAME_STATUS, GAME_TURN, Game } from '../../../../../../src/modules/tictactoe/domain/game'
-
-// const PLAYER_X: Player = Player.create({ email: PLAYER_X_EMAIL, nick: PLAYER_X_NICK })
-// const PLAYER_O: Player = Player.create({ email: PLAYER_O_EMAIL, nick: PLAYER_O_NICK })
-
-const EMPTY_BOARD: Board = <Board>Board.create({
-  arrayCells: [
-    [Cell.create(), Cell.create(), Cell.create()],
-    [Cell.create(), Cell.create(), Cell.create()],
-    [Cell.create(), Cell.create(), Cell.create()],
-  ],
-}).value
+import { GameIsNotWaitingPlayerError } from '../../../../../../src/modules/tictactoe/domain/errors/GameIsNotWaitingPlayerError'
 
 const GAMING_BOARD: Board = <Board>Board.create({
   arrayCells: [
@@ -109,6 +99,53 @@ describe('Game - Tests', () => {
       expect(result.playerX).toStrictEqual(undefined)
       expect(result.playerO).toStrictEqual(PLAYER_O)
       expect(result.board.arrayCells).toStrictEqual(EMPTY_BOARD.arrayCells)
+    })
+  })
+
+  describe('join - Tests', () => {
+    describe('join - successfully cases', () => {
+      it('join - successfully case when playerX has already join', () => {
+        // Arrange
+        const params = {
+          playerX: PLAYER_X,
+          board: EMPTY_BOARD,
+        }
+        const myGame = Game.create(params)
+        // Act
+        const joinResult = myGame.join(PLAYER_O)
+        // Assert
+        expect(joinResult.isRight()).toBe(true)
+        expect(myGame.status).toBe(GAME_STATUS.IN_PROGRESS)
+      })
+      it('join - successfully case when playerO has already join', () => {
+        // Arrange
+        const params = {
+          playerO: PLAYER_O,
+          board: EMPTY_BOARD,
+        }
+        const myGame = Game.create(params)
+        // Act
+        const joinResult = myGame.join(PLAYER_X)
+        // Assert
+        expect(joinResult.isRight()).toBe(true)
+        expect(myGame.status).toBe(GAME_STATUS.IN_PROGRESS)
+      })
+    })
+    describe('join - failed cases', () => {
+      it('join - failed case when game does not accept more players', () => {
+        // Arrange
+        const params = {
+          playerX: PLAYER_X,
+          playerO: PLAYER_O,
+          board: EMPTY_BOARD,
+        }
+        const myGame = Game.create(params)
+        // Act
+        const joinResult = myGame.join(PLAYER_X)
+        // Assert
+        expect(joinResult.isLeft()).toBe(true)
+        expect(joinResult.value).toBeInstanceOf(GameIsNotWaitingPlayerError)
+      })
     })
   })
 

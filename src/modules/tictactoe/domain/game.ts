@@ -9,6 +9,7 @@ import { PIECE_TYPE } from './piece'
 import { Player } from './player'
 import { Position } from './position'
 import { WaitingPlayersError } from './errors/WaitingPlayersError'
+import { GameIsNotWaitingPlayerError } from './errors/GameIsNotWaitingPlayerError'
 
 type Point = { x: number; y: number }
 
@@ -94,7 +95,8 @@ export type GameConstructorParams = {
   board: Board
 }
 
-export type MoveResponse = Either<CellOccupiedError | GameHasFinishedError | TurnNotValidError, boolean>
+export type MoveResponse = Either<CellOccupiedError | GameHasFinishedError | TurnNotValidError, true>
+export type JoinResponse = Either<GameIsNotWaitingPlayerError, true>
 
 export class Game extends AggregateRoot<GameProps> {
   get playerX(): Player | undefined {
@@ -206,6 +208,20 @@ export class Game extends AggregateRoot<GameProps> {
     }
 
     return new Game(props)
+  }
+
+  public join(player: Player): JoinResponse {
+    if (this.status != GAME_STATUS.WAITING_PLAYERS) {
+      return left(GameIsNotWaitingPlayerError.create())
+    }
+
+    if (!this.playerX) {
+      this.props.playerX = player
+    } else {
+      this.props.playerO = player
+    }
+    this.props.status = GAME_STATUS.IN_PROGRESS
+    return right(true)
   }
 
   public move(pieceType: PIECE_TYPE, row: Position, column: Position): MoveResponse {

@@ -13,7 +13,9 @@ import { RowPositionNotValidError } from '../../errors/RowPositionNotValidError'
 import { IMoveRequest, IMoveResponse, IMoveService } from './IMove.service'
 import { IGameRepository } from '../../../domain/repositories/IGame.repository'
 import { IPlayerRepository } from '../../../domain/repositories/IPlayer.repository'
-import { InternalServerError } from '../../../../auth/application/errors/InternalServerError'
+import { HandlerRepoUtil } from '../shared/handlerRepo.util'
+import { Player } from '../../../domain/model/player'
+import { Game } from '../../../domain/model/game'
 
 @injectable()
 export class MoveService implements IMoveService {
@@ -24,25 +26,26 @@ export class MoveService implements IMoveService {
 
   async execute(request: IMoveRequest): Promise<IMoveResponse> {
     // Check that player associated to userCredential was found
-    const playerFoundResponse = await this.playerRepository.getOneById(request.userCredential.id)
-    if (playerFoundResponse.isLeft()) {
-      return left(InternalServerError.create())
-    }
-    const playerFound = playerFoundResponse.value
-    if (!playerFound) {
-      return left(PlayerNotFoundError.create(request.userCredential.id))
+    const playerRepoResponse = await this.playerRepository.getOneById(request.userCredential.id)
+
+    const handledPlayerResponse = HandlerRepoUtil.getInstance<Player>().handleObjectWasFound(
+      playerRepoResponse,
+      PlayerNotFoundError.create(request.userCredential.id)
+    )
+
+    if (handledPlayerResponse.isLeft()) {
+      return left(handledPlayerResponse.value)
     }
 
     // Check that game was found
-    const gameFoundResponse = await this.gameRepository.getOneById(request.idGame)
-    if (gameFoundResponse.isLeft()) {
-      return left(InternalServerError.create())
-    }
+    const gameRepoResponse = await this.gameRepository.getOneById(request.idGame)
 
-    const gameFound = gameFoundResponse.value
-    if (!gameFound) {
-      return left(GameNotFoundError.create(request.userCredential.id))
+    const handledGameResponse = HandlerRepoUtil.getInstance<Game>().handleObjectWasFound(gameRepoResponse, GameNotFoundError.create(request.userCredential.id))
+
+    if (handledGameResponse.isLeft()) {
+      return left(handledGameResponse.value)
     }
+    const gameFound = handledGameResponse.value
 
     // Check that player has joined to the game
     let pieceType

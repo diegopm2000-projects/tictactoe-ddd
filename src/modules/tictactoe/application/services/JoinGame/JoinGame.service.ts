@@ -2,13 +2,15 @@ import { inject, injectable } from 'inversify'
 
 import { left, right } from '../../../../shared/domain/core/either'
 import { TYPES } from '../../../../shared/infrastructure/dependencyInjection/types'
-import { GameNotFoundError } from '../../errors/GameNotFoundError'
-import { JoinNotPossibleError } from '../../errors/JoinNotPossibleError'
-import { PlayerNotFoundError } from '../../errors/PlayerNotFoundError'
-import { IJoinGameRequest, IJoinGameResponse, IJoinGameService } from './IJoinGame.service'
+import { Game } from '../../../domain/model/game'
+import { Player } from '../../../domain/model/player'
 import { IGameRepository } from '../../../domain/repositories/IGame.repository'
 import { IPlayerRepository } from '../../../domain/repositories/IPlayer.repository'
-import { InternalServerError } from '../../../../auth/application/errors/InternalServerError'
+import { JoinNotPossibleError } from '../../errors/JoinNotPossibleError'
+import { PlayerNotFoundError } from '../../errors/PlayerNotFoundError'
+import { HandlerRepoUtil } from '../shared/handlerRepo.util'
+import { IJoinGameRequest, IJoinGameResponse, IJoinGameService } from './IJoinGame.service'
+import { GameNotFoundError } from '../../errors/GameNotFoundError'
 
 @injectable()
 export class JoinGameservice implements IJoinGameService {
@@ -18,32 +20,28 @@ export class JoinGameservice implements IJoinGameService {
   ) {}
 
   async execute(request: IJoinGameRequest): Promise<IJoinGameResponse> {
-    // TODO - Añadir esto a una clase base de la que extendamos
-
-    // ////////////////////////////////////////////////////////////
-
     // Check that player associated to userCredential was found
-    const playerFoundResponse = await this.playerRepository.getOneById(request.userCredential.id)
-    if (playerFoundResponse.isLeft()) {
-      return left(InternalServerError.create())
-    }
+    const playerRepoResponse = await this.playerRepository.getOneById(request.userCredential.id)
 
-    const playerFound = playerFoundResponse.value
-    if (!playerFound) {
-      return left(PlayerNotFoundError.create(request.userCredential.id))
+    const handledPlayerResponse = HandlerRepoUtil.getInstance<Player>().handleObjectWasFound(
+      playerRepoResponse,
+      PlayerNotFoundError.create(request.userCredential.id)
+    )
+
+    if (handledPlayerResponse.isLeft()) {
+      return left(handledPlayerResponse.value)
     }
+    const playerFound = handledPlayerResponse.value
 
     // Check that game was found
-    const gameFoundResponse = await this.gameRepository.getOneById(request.idGame)
-    if (gameFoundResponse.isLeft()) {
-      return left(InternalServerError.create())
-    }
+    const gameRepoResponse = await this.gameRepository.getOneById(request.idGame)
 
-    const gameFound = gameFoundResponse.value
-    if (!gameFound) {
-      return left(GameNotFoundError.create(request.userCredential.id))
+    const handledGameResponse = HandlerRepoUtil.getInstance<Game>().handleObjectWasFound(gameRepoResponse, GameNotFoundError.create(request.userCredential.id))
+
+    if (handledGameResponse.isLeft()) {
+      return left(handledGameResponse.value)
     }
-    // ////////////////////////////////////////////////////////////
+    const gameFound = handledGameResponse.value
 
     // Execute the join
     const joinResponse = gameFound.join(playerFound)
